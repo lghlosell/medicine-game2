@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A6.css">
+</head>
+<body>
+    <!-- Level Name -->
+    <div class="level-name">关卡六.解毒之策</div>
+    <!-- Location Name -->
+    <div class="location-name">炮制坊</div>
+
+    <!-- Master's Question -->
+    <div class="question-dialog" id="question-dialog">
+        <div class="dialog-content">
+            <p>“一旦察觉中毒，当如何应对？”</p>
+        </div>
+    </div>
+
+    <!-- Table Hint Arrow -->
+    <div class="table-hint-container">
+        <div class="hint-text">请选择可解附子之毒的药材</div>
+        <div class="arrow-down"></div>
+    </div>
+
+    <!-- Herb Options (7 circles) -->
+    <div class="herbs-container">
+        <div class="herb-circle" id="herb-1" onclick="selectHerb(1)"></div>
+        <div class="herb-circle" id="herb-2" onclick="selectHerb(2)"></div>
+        <div class="herb-circle" id="herb-3" onclick="selectHerb(3)"></div>
+        <div class="herb-circle" id="herb-4" onclick="selectHerb(4)"></div>
+        <div class="herb-circle" id="herb-5" onclick="selectHerb(5)"></div>
+        <div class="herb-circle" id="herb-6" onclick="selectHerb(6)"></div>
+        <div class="herb-circle" id="herb-7" onclick="selectHerb(7)"></div>
+    </div>
+
+    <!-- Confirm Button (Right of Table) -->
+    <button class="confirm-selection-btn" onclick="checkHerbs()">确定</button>
+
+    <!-- Next Level Button -->
+    <button class="next-level-btn" id="next-level-btn" onclick="goToNextLevel()" style="display: none;">最后一关</button>
+
+    <!-- Right Toolbar -->
+    <div class="game-toolbar">
+        <div class="tool-item" onclick="showBook()" title="查看经文">
+            📖
+        </div>
+        <div class="tool-item" onclick="showHint()" title="查看提示">
+            🔍
+        </div>
+    </div>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: A1 Content -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+                <!-- Page 3: A2 Content -->
+                <div class="book-page" id="book-page-3" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子回阳救逆，熟附子温补命门，二者各有所长</p>
+                    </div>
+                </div>
+                <!-- Page 4: A3 Content -->
+                <div class="book-page" id="book-page-4" style="display: none;">
+                    <div class="book-text">
+                        <p>附子3g以下恐难奏效，15g以上风险陡增，非经验丰富者不可轻用。约合今之3至15克。</p>
+                        <p>炮制得法，剂量适中，方能回阳救逆而不伤正。然需谨记，具体用量须遵医嘱，因人、因证而异。</p>
+                    </div>
+                </div>
+                <!-- Page 5: A4 Content -->
+                <div class="book-page" id="book-page-5" style="display: none;">
+                    <div class="book-text">
+                        <p>真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。</p>
+                        <p>同煎、后下、溶服均无法有效减毒，易致中毒。附子必先煎久煎！</p>
+                    </div>
+                </div>
+                <!-- Page 6: Toxic Signs -->
+                <div class="book-page" id="book-page-6" style="display: none;">
+                    <div class="book-text">
+                        <h3>毒象之辨</h3>
+                        <p>附子之毒可遍及心、神、胃、息，务必警惕。中毒反应复杂多变，需全面掌握。</p>
+                    </div>
+                </div>
+                <!-- Page 7: Antidote Strategies -->
+                <div class="book-page" id="book-page-7" style="display: none;">
+                    <div class="book-text">
+                        <h3>解毒之策</h3>
+                        <p><strong>蜂蜜：</strong>润燥滑肠、缓急止痛，外用解毒生肌，内服可缓中和药、润肺止咳。</p>
+                        <p><strong>甘草：</strong>补脾益气、清热解毒、调和诸药，被誉为“国老”，能缓峻药之烈、解百药之毒。</p>
+                        <p><strong>绿豆：</strong>清热解暑、利尿解毒，善解药食诸毒，是夏季暑热与中毒急救的常备佳品。</p>
+                        <p style="color: #c62828; font-weight: bold; margin-top: 10px;">蜂蜜、甘草、绿豆可辅助解附子之毒，但最紧要者，是立即送医救治！</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 7</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hint Popup -->
+    <div class="popup-overlay" id="hint-popup" style="display: none;" onclick="hideHint()">
+        <div class="popup-content hint-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideHint()">×</div>
+            <div class="hint-content">
+                <h3>提示</h3>
+                <p><strong>蜂蜜：</strong>润燥滑肠、缓急止痛，外用解毒生肌，内服可缓中和药、润肺止咳。</p>
+                <p><strong>甘草：</strong>补脾益气、清热解毒、调和诸药，被誉为“国老”，能缓峻药之烈、解百药之毒。</p>
+                <p><strong>绿豆：</strong>清热解暑、利尿解毒，善解药食诸毒，是夏季暑热与中毒急救的常备佳品。</p>
+                <p><strong>枸杞：</strong>滋补肝肾、益精明目，久服轻身耐老，为平补阴阳的日常明目抗衰果。</p>
+                <p><strong>白芍：</strong>养血柔肝、缓急止痛、敛阴止汗，与甘草同用可调营和血、舒缓痉挛。</p>
+                <p><strong>人参：</strong>大补元气、复脉固脱、益智生津，为拯危救脱之第一要药，可顷刻回阳助脉。</p>
+                <p><strong>桂皮（肉桂）：</strong>补火助阳、引火归元、散寒温脉，善治命门火衰、寒凝血滞之冷痛。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toolbar functions
+        let currentPage = 1;
+        let totalPages = 7;
+
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function showHint() {
+            document.getElementById('hint-popup').style.display = 'flex';
+        }
+
+        function hideHint() {
+            document.getElementById('hint-popup').style.display = 'none';
+        }
+
+        const selectedHerbs = new Set();
+        const correctHerbs = new Set([1, 2, 7]); // 蜂蜜, 甘草, 绿豆
+        let isSolved = false;
+
+        const herbNames = {
+            1: "蜂蜜",
+            2: "甘草",
+            3: "白芍",
+            4: "人参",
+            5: "枸杞",
+            6: "桂皮",
+            7: "绿豆"
+        };
+
+        function selectHerb(id) {
+            if (isSolved) return;
+
+            const herbElement = document.getElementById(`herb-${id}`);
+            
+            if (selectedHerbs.has(id)) {
+                selectedHerbs.delete(id);
+                herbElement.classList.remove('selected');
+                herbElement.textContent = ""; // Hide text
+            } else {
+                selectedHerbs.add(id);
+                herbElement.classList.add('selected');
+                herbElement.textContent = herbNames[id]; // Show text
+            }
+        }
+
+        function checkHerbs() {
+            if (isSolved) return;
+
+            const dialogText = document.querySelector('.dialog-content p');
+            
+            // Check if exact match
+            const isEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
+
+            if (isEqual(selectedHerbs, correctHerbs)) {
+                isSolved = true;
+                dialogText.textContent = "“周全！蜂蜜、甘草、绿豆可辅助解毒，但最紧要者，是立即送医救治！”";
+                dialogText.style.color = "#2e7d32"; // Green text for success
+                document.querySelector('.confirm-selection-btn').style.display = 'none';
+                
+                // Reveal all herb names
+                for (let i = 1; i <= 7; i++) {
+                    const el = document.getElementById(`herb-${i}`);
+                    el.textContent = herbNames[i];
+                    if (!selectedHerbs.has(i)) {
+                        el.classList.add('show-name');
+                    } else {
+                        // Correct ones stay green but ensure they use the correct text-shadow style
+                        el.classList.add('selected'); 
+                    }
+                }
+                
+                // Show next level button
+                document.getElementById('next-level-btn').style.display = 'block';
+            } else {
+                dialogText.textContent = "“不对，你再好好想想”";
+                dialogText.style.color = "#c62828"; // Red text for error
+                
+                // Optional: Shake effect or visual feedback
+                const dialog = document.getElementById('question-dialog');
+                dialog.style.animation = 'none';
+                dialog.offsetHeight; /* trigger reflow */
+                dialog.style.animation = 'shake 0.5s';
+            }
+        }
+
+        function goToNextLevel() {
+            window.location.href = '../A7/A7.html';
+        }
+    </script>
+</body>
+</html>

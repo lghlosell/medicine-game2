@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A1.css"></link>
+
+</head>
+<body>
+    <div class="intro-screen" id="intro-screen" onclick="hideIntro()">
+        <div class="intro-text">
+            <p>随后，我与师父来到了炮制坊，坊内两侧摆放着整齐的竹制药架，上面晾晒着各类药材，阳光透过雕花木窗洒进来，在地面投下斑驳的光影。正中央的石台上，摆放着两个陶制托盘，分别盛放着两种不同的附子。</p>
+            <p>左侧托盘里的生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；右侧托盘里的熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+        </div>
+        <div class="continue-hint">点击屏幕任意处继续</div>
+    </div>
+
+    <script>
+        // Custom Cursor Logic
+        document.addEventListener('mousemove', (e) => {
+            const cursor = document.getElementById('custom-cursor');
+            if (cursor) {
+                // Only update horizontal position
+                cursor.style.left = e.clientX + 'px';
+                // Vertical position is handled by CSS (bottom: -20px)
+            }
+        });
+
+        function hideIntro() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('question-dialog').style.display = 'block';
+            document.getElementById('game-toolbar').style.display = 'flex';
+            document.getElementById('tray-arrows').style.display = 'block';
+            document.getElementById('tray-click-areas').style.display = 'block';
+            document.getElementById('custom-cursor').style.display = 'block';
+        }
+
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function showHint() {
+            document.getElementById('hint-popup').style.display = 'flex';
+        }
+
+        function hideHint() {
+            document.getElementById('hint-popup').style.display = 'none';
+        }
+
+        let currentPage = 1;
+        let totalPages = 1; // Initially only 1 page is available
+
+        function selectTray(side) {
+            console.log("Selected tray:", side);
+            
+            // Hide custom cursor on selection
+            document.getElementById('custom-cursor').style.display = 'none';
+            // Hide arrows
+            document.getElementById('tray-arrows').style.display = 'none';
+
+            const dialogContent = document.querySelector('#question-dialog .dialog-content p');
+            const leftArea = document.querySelector('.area-left');
+            const rightArea = document.querySelector('.area-right');
+
+            // Apply visual feedback: Left flashes red, Right glows green
+            leftArea.classList.add('flash-red');
+            rightArea.classList.add('glow-green');
+
+            // Unlock 2nd page in the book
+            totalPages = 2;
+            document.getElementById('book-pagination').style.display = 'flex';
+            updatePagination();
+
+            // Show continue button
+            document.getElementById('continue-btn').style.display = 'block';
+
+            if (side === 'left') {
+                // Incorrect: 生附子
+                dialogContent.textContent = "“非也！生附子毒性猛烈，多用于回阳救逆之急救。真武汤需久服，当用熟附子。”";
+            } else {
+                // Correct: 熟附子
+                dialogContent.textContent = "“不错！熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。”";
+            }
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            // Hide all pages
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            // Show current page
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            
+            // Update page indicator
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function nextLevel() {
+            const dialogContent = document.querySelector('#question-dialog .dialog-content p');
+            dialogContent.textContent = "“你已经通过了第一关了，随为师去下一关吧”";
+            document.getElementById('continue-btn').style.display = 'none'; // Optional: hide button after click
+
+            // Wait 4 seconds then redirect
+            setTimeout(() => {
+                window.location.href = '../A2/A2.html';
+            }, 4000);
+        }
+    </script>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Location Name -->
+    <div class="level-name">关卡一.炮制之辨</div>
+    <div class="location-name">炮制坊</div>
+
+    <!-- Master's Question -->
+    <div class="question-dialog" id="question-dialog" style="display: none;">
+        <div class="dialog-content">
+            <p>“徒儿，真武汤中所用之附子，是这生猛的生附子，还是这温煦的熟附子？”</p>
+        </div>
+    </div>
+
+    <!-- Tray Arrows -->
+    <div id="tray-arrows" style="display: none;">
+        <div class="tray-arrow arrow-left"></div>
+        <div class="tray-arrow arrow-right"></div>
+    </div>
+
+    <!-- Clickable Areas for Trays -->
+    <div id="tray-click-areas" style="display: none;">
+        <div class="tray-click-area area-left" onclick="selectTray('left')"></div>
+        <div class="tray-click-area area-right" onclick="selectTray('right')"></div>
+    </div>
+
+    <!-- Right Toolbar -->
+    <div class="game-toolbar" id="game-toolbar" style="display: none;">
+        <div class="tool-item" onclick="showBook()" title="查看经文">
+            📖
+        </div>
+        <div class="tool-item" onclick="showHint()" title="查看提示">
+            🔍
+        </div>
+    </div>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Original Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: New Content (Hidden initially) -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination" style="display: none;">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 2</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hint Popup -->
+    <div class="popup-overlay" id="hint-popup" style="display: none;" onclick="hideHint()">
+        <div class="popup-content hint-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideHint()">×</div>
+            <div class="hint-text">
+                <p>提示：左侧托盘里的生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；右侧托盘里的熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+            </div>
+        </div>
+    </div>
+    <!-- Continue Button -->
+    <div id="continue-btn" class="continue-btn" onclick="nextLevel()" style="display: none;">继续</div>
+</body>
+</html>

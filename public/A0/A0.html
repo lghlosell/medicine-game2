@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A0.css"></link>
+
+</head>
+<body>
+    <div class="intro-screen">
+        <div class="intro-text">
+            <p>药王谷灵气氤氲，百草丰茂，自古便是中药材生长的绝佳之地。</p>
+            <p>谷中住着一位杏林圣手——孙老，我名韩立，幸得拜入门下，随师修习岐黄之术。</p>
+            <p>这日洒扫毕，忽见案头横陈一册《伤寒论》，纸色微黄，墨香犹存，想是师父遗落。</p>
+            <p>指尖距书脊不过半寸，我却如临深渊：擅翻恐犯门规，不翻又心痒如蚁。</p>
+            <p>窗外药圃风起，叶影摇曳，似在替我斟酌。</p>
+        </div>
+        <div class="continue-btn" onclick="document.querySelector('.intro-screen').style.display='none'">继续</div>
+    </div>
+
+    <div class="scene-interaction" id="book-interaction">
+        <div class="arrow-down"></div>
+        <div class="click-area" onclick="switchBackground()"></div>
+    </div>
+
+    <div class="ancient-book-text" id="ancient-book-text" style="display: none;">
+        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+    </div>
+
+    <div class="continue-btn" id="next-chapter-btn" style="display: none;" onclick="showNextScene()">继续</div>
+
+    <div class="transition-screen" id="transition-screen" style="display: none;">
+        <div class="transition-text">
+            <p>正当我看得入神，耳边忽飘来一句带笑的调侃：</p>
+            <p>“哟，这么勤奋，扫地还偷看书？”</p>
+            <p>我猛地抬头——师父抱臂倚门，夕阳给他镀了层暖金，眼底映着摇曳药影，像两潭含风的深水。</p>
+        </div>
+    </div>
+
+    <div class="dialog-container" id="dialog-container" style="display: none;">
+        <div class="dialog-bubble apprentice-bubble">
+            <p>师父，徒儿已经打扫完了，桌上有本书，在学习书中的真武汤。</p>
+        </div>
+        <div class="dialog-bubble master-bubble" style="display: none;">
+            <p>“徒儿，欲习真武汤之精妙，必先通晓其君药附子。”</p>
+            <p>“附子如猛虎，用当则回阳救逆，起死回生；用失则祸患无穷，伤及性命。今日，你需闯过七重考验，洞悉附子之性、用、毒、解、配，方能领悟真武汤真谛。准备好了吗？”</p>
+        </div>
+    </div>
+
+    <!-- Book Icon Trigger -->
+    <div class="book-icon" id="book-icon" onclick="showBookPopup()" style="display: none;">
+        📖
+    </div>
+
+    <!-- Centered Book Popup -->
+    <div class="book-popup-overlay" id="book-popup-overlay" onclick="closeBookPopup()" style="display: none;">
+        <div class="ancient-book-popup" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="closeBookPopup()">×</div>
+            <div class="book-content">
+                <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="../A1/A1.html" class="ready-btn" id="ready-btn" style="display: none;">准备好了</a>
+
+    <script>
+        function switchBackground() {
+            document.body.style.backgroundImage = "url('../../assets/img/read.png')";
+            document.getElementById('book-interaction').style.display = 'none';
+            document.getElementById('ancient-book-text').style.display = 'block';
+            document.getElementById('next-chapter-btn').style.display = 'block';
+        }
+
+        function showNextScene() {
+            // Hide current elements
+            document.getElementById('ancient-book-text').style.display = 'none';
+            document.getElementById('next-chapter-btn').style.display = 'none';
+            
+            // Show transition screen
+            const transitionScreen = document.getElementById('transition-screen');
+            transitionScreen.style.display = 'flex';
+            
+            // Wait 6 seconds (animation + reading) then change background and show dialogs
+            setTimeout(() => {
+                 document.body.style.backgroundImage = "url('../../assets/img/meet.png')";
+                 transitionScreen.style.display = 'none';
+                 
+                 // Show Dialogs
+                 document.getElementById('dialog-container').style.display = 'block';
+                 // Show Book Icon
+                 document.getElementById('book-icon').style.display = 'flex';
+                 
+                 // Sequence: Apprentice speaks -> wait -> Master speaks
+                 setTimeout(() => {
+                     document.querySelector('.master-bubble').style.display = 'block';
+                     // Show Ready Button after master speaks
+                     setTimeout(() => {
+                        document.getElementById('ready-btn').style.display = 'block';
+                     }, 2000);
+                 }, 3000); // Master replies after 3 seconds
+            }, 6000); 
+        }
+
+        function showBookPopup() {
+            document.getElementById('book-popup-overlay').style.display = 'flex';
+        }
+
+        function closeBookPopup() {
+            document.getElementById('book-popup-overlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

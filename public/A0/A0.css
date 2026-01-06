@@ -1,0 +1,477 @@
+body{
+    background-image: url('../../assets/img/clean.png');
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+}
+
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: #f0f0f0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-text {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    height: 70vh;
+    font-size: 1.8rem;
+    line-height: 2.5;
+    letter-spacing: 0.3rem;
+    animation: fadeIn 3s ease-in;
+}
+
+.intro-text p {
+    margin: 0 1rem;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+.continue-btn {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    animation: fadeIn 3s ease-in;
+    z-index: 2000; /* Ensure it's above other elements */
+}
+
+#next-chapter-btn {
+    /* Specific styles for the second continue button if needed, otherwise it inherits .continue-btn */
+    /* Adjust color for readability on non-black backgrounds */
+    color: #3e2723;
+    border-color: #3e2723;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#next-chapter-btn:hover {
+    color: #fff;
+    background-color: #5d4037;
+    border-color: #5d4037;
+}
+
+.continue-btn:hover {
+    color: #fff;
+    border-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.scene-interaction {
+    position: absolute;
+    top: 46%; /* Estimated position based on the image */
+    left: 58%; /* Estimated position based on the image */
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.click-area {
+    width: 60px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 0, 0.7); /* Yellow highlight circle */
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgba(255, 255, 0, 0.1);
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.arrow-down {
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 15px solid rgba(255, 255, 0, 0.9);
+    margin-bottom: 10px;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.ancient-book-text {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: auto;
+    max-height: 80vh;
+    padding: 30px 40px;
+    background-color: #f5e6d3; /* Softer ancient paper color */
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxmaWx0ZXIgaWQ9J25vaXNlJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC41JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI25vaXNlKScgb3BhY2l0eT0nMC4xJy8+PC9zdmc+');
+    border: none;
+    box-shadow: 
+        inset 0 0 30px rgba(139, 69, 19, 0.2), /* Inner vignette */
+        5px 5px 15px rgba(0,0,0,0.3); /* Outer shadow */
+    
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.4rem;
+    line-height: 2;
+    color: #2c1810;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+    overflow-y: hidden;
+    overflow-x: auto;
+    
+    /* Scroll effect animation */
+    clip-path: inset(0 100% 0 0);
+    animation: scroll-unroll 2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.ancient-book-text p {
+    margin-left: 1.5rem;
+    text-indent: 1.5rem;
+}
+
+.highlight-red {
+    color: #c62828; /* Deep red for emphasis */
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+@keyframes scroll-unroll {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0 0 0 0); }
+}
+
+.transition-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    color: #f0f0f0;
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.transition-text {
+    writing-mode: horizontal-tb; /* Default, but explicit */
+    width: 80%;
+    max-width: 800px;
+    font-size: 1.6rem;
+    line-height: 2;
+    letter-spacing: 0.2rem;
+    animation: fadeIn 1.5s ease-in;
+}
+
+.transition-text p {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    overflow: hidden; /* Ensures the content is not revealed until the animation */
+    border-right: .15em solid orange; /* The typwriter cursor */
+    white-space: nowrap; /* Keeps the content on a single line */
+    margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+    /* Note: Typewriter effect is complex with multiple lines. 
+       Let's stick to simple fade-in or slide-in for now based on "unfold horizontally".
+       "Unfold horizontally" could mean clip-path from left to right.
+    */
+    white-space: normal;
+    border: none;
+    
+    /* Reveal animation */
+    clip-path: inset(0 100% 0 0);
+    animation: text-reveal 3s steps(40, end) forwards;
+    opacity: 0;
+    animation-delay: 0.5s; /* Staggering can be added via nth-child if needed */
+    animation-fill-mode: forwards;
+}
+
+/* Stagger animations for paragraphs */
+.transition-text p:nth-child(1) { animation: text-reveal 2s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 0.2s; }
+.transition-text p:nth-child(2) { animation: text-reveal 2s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 1.5s; }
+.transition-text p:nth-child(3) { animation: text-reveal 2.5s cubic-bezier(0.2, 1, 0.3, 1) forwards; animation-delay: 3s; }
+
+@keyframes text-reveal {
+    from { 
+        clip-path: inset(0 100% 0 0); 
+        opacity: 1;
+    }
+    to { 
+        clip-path: inset(0 0 0 0); 
+        opacity: 1;
+    }
+}
+
+/* Dialog Styles */
+.dialog-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    pointer-events: none; /* Let clicks pass through to background if needed */
+}
+
+.dialog-bubble {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    padding: 15px 25px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    max-width: 280px;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Tail for speech bubble */
+.dialog-bubble::after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    display: block;
+    width: 0;
+}
+
+/* Apprentice Bubble Position (Left side) */
+.apprentice-bubble {
+    top: 25%;
+    left: 12%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #8d6e63;
+}
+
+.apprentice-bubble::after {
+    top: 100%;
+    left: 50%;
+    border-width: 15px 15px 0;
+    border-color: #8d6e63 transparent;
+    margin-left: -15px;
+}
+.apprentice-bubble::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px 12px 0;
+    border-color: rgba(255, 255, 255, 0.9) transparent;
+    margin-left: -12px;
+    z-index: 1;
+}
+
+
+/* Master Bubble Position (Right side) */
+.master-bubble {
+    top: 25%;
+    right: 32%; /* Adjusted based on image composition */
+    transform: translate(0, -50%);
+    border: 2px solid #4a3728;
+    background-color: rgba(255, 248, 225, 0.95); /* Slightly warmer background for master */
+}
+
+.master-bubble::after {
+    top: 100%; /* Pointing down to master */
+    right: 30%;
+    border-width: 15px 15px 0;
+    border-color: #4a3728 transparent;
+}
+.master-bubble::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 30%;
+    margin-right: 3px;
+    border-width: 12px 12px 0;
+    border-color: rgba(255, 248, 225, 0.95) transparent;
+    z-index: 1;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0); /* Note: this might conflict with translate positioning, handled by specific rules if needed, but here simple scale works if origin is set or if we rely on margin positioning instead of transform translate for center alignment. 
+        Wait, transform: translate(-50%, -50%) in apprentice-bubble will be overridden by this animation's end state if not careful.
+        Better to include translate in keyframes or wrapper.
+        */
+    }
+}
+
+/* Fixing animation conflict with transform positioning */
+.apprentice-bubble {
+    animation: popInApprentice 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.master-bubble {
+    animation: popInMaster 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popInApprentice {
+    from { opacity: 0; transform: translate(-50%, -40%) scale(0.8); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@keyframes popInMaster {
+    from { opacity: 0; transform: translate(0, -40%) scale(0.8); }
+    to { opacity: 1; transform: translate(0, -50%) scale(1); }
+}
+
+/* Book Icon and Popup Styles */
+.book-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #8d6e63;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+    animation: fadeIn 1s ease-in;
+}
+
+.book-icon:hover {
+    transform: scale(1.1);
+    background-color: #fff;
+}
+
+.book-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 4000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.ancient-book-popup {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    max-height: 80vh;
+    padding: 40px;
+    background-color: #f5e6d3;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMDAlJyBoZWlnaHQ9JzEwMCUnPjxmaWx0ZXIgaWQ9J25vaXNlJz48ZmVUdXJidWxlbmNlIHR5cGU9J2ZyYWN0YWxOb2lzZScgYmFzZUZyZXF1ZW5jeT0nMC41JyBudW1PY3RhdmVzPSczJyBzdGl0Y2hUaWxlcz0nc3RpdGNoJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI25vaXNlKScgb3BhY2l0eT0nMC4xJy8+PC9zdmc+');
+    border: none;
+    box-shadow: 
+        inset 0 0 30px rgba(139, 69, 19, 0.2),
+        0 10px 25px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.book-content {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    font-size: 1.4rem;
+    line-height: 2;
+    color: #2c1810;
+    font-weight: 500;
+    letter-spacing: 0.2rem;
+    height: 60vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin: 0 auto;
+}
+
+.book-content p {
+    margin-left: 1.5rem;
+    text-indent: 1.5rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    color: #8d6e63;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    z-index: 10;
+}
+
+.close-btn:hover {
+    color: #5d4037;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.ready-btn {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 50px;
+    font-size: 1.8rem;
+    color: #fff;
+    background-color: #5d4037;
+    border: 2px solid #8d6e63;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 5px;
+    z-index: 2000;
+    animation: fadeIn 1s ease-in;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+}
+
+.ready-btn:hover {
+    background-color: #4e342e;
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.5);
+}
+
+.ready-btn:active {
+    transform: translateX(-50%) scale(0.98);
+}

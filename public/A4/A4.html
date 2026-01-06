@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A4.css"></link>
+</head>
+<body>
+    <!-- Level Name -->
+    <div class="level-name">关卡四.煎煮之秘</div>
+    <!-- Location Name -->
+    <div class="location-name">煎药房</div>
+
+    <!-- Master's Question -->
+    <div class="question-dialog" id="question-dialog">
+        <div class="dialog-content">
+            <p>“真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。附子虽好，毒性犹存。如何煎煮，方能祛毒存效？”</p>
+        </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-container">
+        <div class="option-card" onclick="selectOption('A')">
+            <div class="option-icon" style="background-image: url('../../assets/img/icon1.png');"></div>
+            <div class="option-text"> 先煎1小时以上</div>
+        </div>
+        <div class="option-card" onclick="selectOption('B')">
+            <div class="option-icon" style="background-image: url('../../assets/img/icon2.png');"></div>
+            <div class="option-text">同煎<br>（药材一起入锅）</div>
+        </div>
+        <div class="option-card" onclick="selectOption('C')">
+            <div class="option-icon" style="background-image: url('../../assets/img/icon3.png');"></div>
+            <div class="option-text">后下<br>(最后放入药材)</div>
+        </div>
+        <div class="option-card" onclick="selectOption('D')">
+            <div class="option-icon" style="background-image: url('../../assets/img/icon4.png');"></div>
+            <div class="option-text">溶服<br>(开水冲服)</div>
+        </div>
+    </div>
+
+    <!-- Right Toolbar -->
+    <div class="game-toolbar">
+        <div class="tool-item" onclick="showBook()" title="查看经文">
+            📖
+        </div>
+        <div class="tool-item" onclick="showHint()" title="查看提示">
+            🔍
+        </div>
+    </div>
+
+    <!-- Next Level Button -->
+    <button class="next-level-btn" id="next-level-btn" onclick="goToNextLevel()">下一关</button>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: A1 Content -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+                <!-- Page 3: A2 Content -->
+                <div class="book-page" id="book-page-3" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子回阳救逆，熟附子温补命门，二者各有所长</p>
+                    </div>
+                </div>
+                <!-- Page 4: A3 Content -->
+                <div class="book-page" id="book-page-4" style="display: none;">
+                    <div class="book-text">
+                        <p>附子3g以下恐难奏效，15g以上风险陡增，非经验丰富者不可轻用。约合今之3至15克。</p>
+                        <p>炮制得法，剂量适中，方能回阳救逆而不伤正。然需谨记，具体用量须遵医嘱，因人、因证而异。</p>
+                    </div>
+                </div>
+                <!-- Page 5: A4 Content -->
+                <div class="book-page" id="book-page-5" style="display: none;">
+                    <div class="book-text">
+                        <p>真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。</p>
+                        <p>同煎、后下、溶服均无法有效减毒，易致中毒。附子必先煎久煎！</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 5</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hint Popup -->
+    <div class="popup-overlay" id="hint-popup" style="display: none;" onclick="hideHint()">
+        <div class="popup-content hint-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideHint()">×</div>
+            <div class="hint-content">
+                <h3>煎煮之法详解</h3>
+                <div class="hint-item">
+                    <strong>先煎1小时以上：</strong>通过长时间高温把附子、川乌等有毒生物碱水解为低毒或无效成分，确保用药安全，同时让质地坚硬的矿石、贝壳类有效成分充分析出，增强温阳散寒或重镇潜降之力。
+                </div>
+                <div class="hint-item">
+                    <strong>同煎：</strong>所有药材一起沸腾，使寒热、升降、补泻之性在同步溶出中彼此调和，既保持方剂整体配伍比例，又避免分煎导致的“各奏各调”，适合性味平和、无毒的普通复方。
+                </div>
+                <div class="hint-item">
+                    <strong>后下：</strong>在关火前5–10分钟投入芳香或含挥发性成分的药材（薄荷、砂仁等），减少高温破坏，保留其轻清走窜之气，迅速宣散表邪、化湿醒脾，发挥“轻可去实”的速效。
+                </div>
+                <div class="hint-item">
+                    <strong>溶服：</strong>将阿胶、芒硝等易溶或已精制之品用煎好药液或开水化开，避免久煎粘锅或分解失效，既保持滋阴、软坚、泻下等专功，又使剂量精准、服用方便。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let totalPages = 5;
+
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function showHint() {
+            document.getElementById('hint-popup').style.display = 'flex';
+        }
+
+        function hideHint() {
+            document.getElementById('hint-popup').style.display = 'none';
+        }
+
+        function goToNextLevel() {
+            window.location.href = '../A5/A5.html';
+        }
+
+        function selectOption(option) {
+            const dialogContent = document.querySelector('#question-dialog .dialog-content p');
+            const body = document.body;
+            const cards = document.querySelectorAll('.option-card');
+            
+            // Reset all cards
+            cards.forEach(card => {
+                card.classList.remove('correct', 'wrong');
+            });
+
+            // Find clicked card
+            let clickedCard;
+            if (option === 'A') clickedCard = cards[0];
+            else if (option === 'B') clickedCard = cards[1];
+            else if (option === 'C') clickedCard = cards[2];
+            else if (option === 'D') clickedCard = cards[3];
+
+            if (option === 'A') {
+                dialogContent.textContent = "“然也！久煎可破坏乌头碱等有毒成分，保其温阳之效。”";
+                body.style.backgroundImage = "url('../../assets/img/bg4.3.png')";
+                
+                clickedCard.classList.add('correct');
+                
+                // Shatter all WRONG cards
+                cards.forEach(card => {
+                    if (card !== clickedCard) {
+                        createShatterEffect(card);
+                        card.classList.add('shattering');
+                    }
+                });
+                
+                // Add success logic here (e.g. show next level button)
+                document.getElementById('next-level-btn').style.display = 'block';
+            } else {
+                dialogContent.textContent = "“切不可大意！同煎、后下、溶服均无法有效减毒，易致中毒。附子必先煎久煎！”";
+                body.style.backgroundImage = "url('../../assets/img/bg4.2.png')";
+                clickedCard.classList.add('wrong');
+            }
+        }
+
+        function createShatterEffect(element) {
+            const rect = element.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            for (let i = 0; i < 20; i++) {
+                const shard = document.createElement('div');
+                shard.classList.add('shard');
+                
+                // Randomize shard properties
+                const size = Math.random() * 20 + 10;
+                shard.style.width = `${size}px`;
+                shard.style.height = `${size}px`;
+                shard.style.left = `${rect.left + Math.random() * rect.width}px`;
+                shard.style.top = `${rect.top + Math.random() * rect.height}px`;
+                shard.style.backgroundColor = '#b71c1c'; // Red for wrong options
+                
+                // Randomize trajectory
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 200 + 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const tr = Math.random() * 360;
+                
+                shard.style.setProperty('--tx', `${tx}px`);
+                shard.style.setProperty('--ty', `${ty}px`);
+                shard.style.setProperty('--tr', `${tr}deg`);
+                
+                shard.style.animation = `explode 0.8s ease-out forwards`;
+                
+                document.body.appendChild(shard);
+                
+                // Cleanup
+                setTimeout(() => {
+                    shard.remove();
+                }, 1200);
+            }
+        }
+    </script>
+</html>

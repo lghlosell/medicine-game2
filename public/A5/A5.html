@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A5.css"></link>
+</head>
+<body>
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="intro-screen">
+        <img id="intro-bg-img" src="../../assets/img/night.png" style="position:absolute; width:100%; height:100%; object-fit:cover; opacity:0; transition: opacity 2s ease-in-out; z-index:-1;">
+        <div class="intro-text" id="intro-text-1">
+            <p>完成了四关的考验，师父让我去准备一些材料，等晚上再来考验我，正好，我也累了，可以休息一下。</p>
+        </div>
+        <div class="intro-text" id="intro-text-2" style="display: none;">
+            <p>戌正时分，师父唤我来到“炮制坊”，继续了对我的考验</p>
+        </div>
+    </div>
+
+    <!-- Game Container (Initially Hidden) -->
+    <div id="game-container" style="display: none;">
+        <!-- Level Name -->
+        <div class="level-name">关卡五.毒象之辨</div>
+        <!-- Location Name -->
+        <div class="location-name">炮制坊</div>
+
+        <!-- Master's Question -->
+        <div class="question-dialog" id="question-dialog">
+            <div class="dialog-content">
+                <p>师父表情凝重：“若煎煮不当或过量，附子之毒可现。识得毒象，方能及时应对。中毒反应常见于何处？”</p>
+            </div>
+        </div>
+
+        <!-- Options Container -->
+        <div class="options-container">
+            <div class="option-card" id="option-A" onclick="toggleOption('A')" onmouseenter="showPreview('A')" onmouseleave="hidePreview()">
+                 心血管系统反应，如心跳加速
+            </div>
+            <div class="option-card" id="option-B" onclick="toggleOption('B')" onmouseenter="showPreview('B')" onmouseleave="hidePreview()">
+                神经系统反应，如舌尖、头皮或四肢末端麻木
+            </div>
+            <div class="option-card" id="option-C" onclick="toggleOption('C')" onmouseenter="showPreview('C')" onmouseleave="hidePreview()">
+                消化系统反应，如恶心、呕吐、腹泻等
+            </div>
+            <div class="option-card" id="option-D" onclick="toggleOption('D')" onmouseenter="showPreview('D')" onmouseleave="hidePreview()">
+                呼吸系统，如呼吸抑制、呼吸困难等
+            </div>
+            <button class="confirm-btn" onclick="checkAnswer()">确定</button>
+        </div>
+
+        <!-- Image Preview Container -->
+        <div class="image-preview-container" id="image-preview">
+            <img id="preview-img" src="" alt="Disease Preview">
+        </div>
+
+        <!-- Right Toolbar -->
+        <div class="game-toolbar">
+            <div class="tool-item" onclick="showBook()" title="查看经文">
+                📖
+            </div>
+            <div class="tool-item" onclick="showHint()" title="查看提示">
+                🔍
+            </div>
+        </div>
+
+        <!-- Next Level Button -->
+        <button class="next-level-btn" id="next-level-btn" onclick="goToNextLevel()">下一关</button>
+    </div>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: A1 Content -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+                <!-- Page 3: A2 Content -->
+                <div class="book-page" id="book-page-3" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子回阳救逆，熟附子温补命门，二者各有所长</p>
+                    </div>
+                </div>
+                <!-- Page 4: A3 Content -->
+                <div class="book-page" id="book-page-4" style="display: none;">
+                    <div class="book-text">
+                        <p>附子3g以下恐难奏效，15g以上风险陡增，非经验丰富者不可轻用。约合今之3至15克。</p>
+                        <p>炮制得法，剂量适中，方能回阳救逆而不伤正。然需谨记，具体用量须遵医嘱，因人、因证而异。</p>
+                    </div>
+                </div>
+                <!-- Page 5: A4 Content -->
+                <div class="book-page" id="book-page-5" style="display: none;">
+                    <div class="book-text">
+                        <p>真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。</p>
+                        <p>同煎、后下、溶服均无法有效减毒，易致中毒。附子必先煎久煎！</p>
+                    </div>
+                </div>
+                <!-- Page 6: Toxic Signs -->
+                <div class="book-page" id="book-page-6" style="display: none;">
+                    <div class="book-text">
+                        <h3>毒象之辨</h3>
+                        <p>附子之毒可遍及心、神、胃、息，务必警惕。中毒反应复杂多变，需全面掌握。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 6</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hint Popup -->
+    <div class="popup-overlay" id="hint-popup" style="display: none;" onclick="hideHint()">
+        <div class="popup-content hint-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideHint()">×</div>
+            <h3>提示</h3>
+            <p>附子之毒，其性烈，可伤心神，乱气机，损脾胃。</p>
+            <p>若见心悸、肢麻、呕吐、气短，皆恐为中毒之兆。</p>
+        </div>
+    </div>
+
+    <script>
+        // Intro Sequence
+        document.addEventListener('DOMContentLoaded', () => {
+            const text1 = document.getElementById('intro-text-1');
+            const text2 = document.getElementById('intro-text-2');
+            const introScreen = document.getElementById('intro-screen');
+            const introBg = document.getElementById('intro-bg-img');
+            const gameContainer = document.getElementById('game-container');
+
+            // 0s: Start (Text 1 on Black)
+            
+            // 4s: Fade out Text 1
+            setTimeout(() => {
+                text1.style.opacity = '0';
+                
+                // 5s: Text 1 gone, Fade in Night BG
+                setTimeout(() => {
+                    text1.style.display = 'none';
+                    introBg.style.opacity = '1'; // Show night image
+                    
+                    // 6s: Show Text 2 (over night image)
+                    setTimeout(() => {
+                        text2.style.display = 'block';
+                        void text2.offsetWidth;
+                        text2.style.opacity = '1';
+                    }, 1000);
+                }, 1000);
+            }, 4000);
+
+            // 11s: Fade out Text 2
+            setTimeout(() => {
+                text2.style.opacity = '0';
+                
+                // 12s: Fade out Intro Screen
+                setTimeout(() => {
+                    introScreen.style.opacity = '0';
+                    
+                    // 13s: Remove Intro, Show Game
+                    setTimeout(() => {
+                        introScreen.style.display = 'none';
+                        gameContainer.style.display = 'block';
+                    }, 1000);
+                }, 1000);
+            }, 11000);
+        });
+
+        // Game Logic
+        const selectedOptions = new Set();
+        const correctOptions = new Set(['A', 'B', 'C', 'D']);
+        let isAnswered = false;
+
+        function toggleOption(option) {
+            if (isAnswered) return;
+            
+            const card = document.getElementById(`option-${option}`);
+            if (selectedOptions.has(option)) {
+                selectedOptions.delete(option);
+                card.classList.remove('selected');
+            } else {
+                selectedOptions.add(option);
+                card.classList.add('selected');
+            }
+        }
+
+        function showPreview(option) {
+            const previewContainer = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            let imgName = '';
+
+            switch(option) {
+                case 'A': imgName = 'disease1.png'; break;
+                case 'B': imgName = 'disease2.png'; break;
+                case 'C': imgName = 'disease3.png'; break;
+                case 'D': imgName = 'disease4.png'; break;
+            }
+
+            if (imgName) {
+                previewImg.src = `../../assets/img/${imgName}`;
+                previewContainer.style.display = 'flex';
+            }
+        }
+
+        function hidePreview() {
+            const previewContainer = document.getElementById('image-preview');
+            previewContainer.style.display = 'none';
+        }
+
+        function checkAnswer() {
+            if (isAnswered) return;
+            
+            if (selectedOptions.size === 0) {
+                alert("请至少选择一个选项！");
+                return;
+            }
+
+            // Reset previous highlights
+            ['A', 'B', 'C', 'D'].forEach(opt => {
+                document.getElementById(`option-${opt}`).classList.remove('wrong-answer');
+            });
+
+            // Check if selected options match exactly with correct options
+            const isEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
+            
+            if (isEqual(selectedOptions, correctOptions)) {
+                // Correct
+                isAnswered = true;
+                document.querySelector('.dialog-content p').textContent = "“然也！附子中毒，牵涉广泛，不可不察。徒儿已得真传，可出师矣！”";
+                
+                // Highlight all correct
+                ['A', 'B', 'C', 'D'].forEach(opt => {
+                    document.getElementById(`option-${opt}`).classList.add('correct-answer');
+                });
+            } else {
+                // Wrong
+                isAnswered = true; // Lock answers even if wrong, as we move on
+                // Find missing correct options
+                const missingOptions = [...correctOptions].filter(x => !selectedOptions.has(x));
+                
+                // Map option codes to descriptive text
+                const optionMap = {
+                    'A': '心血管反应',
+                    'B': '神经反应',
+                    'C': '消化反应',
+                    'D': '呼吸反应'
+                };
+                
+                const missingText = missingOptions.map(opt => optionMap[opt]).join('、');
+                
+                document.querySelector('.dialog-content p').textContent = `“尚有遗漏！${missingText}亦不可忽视。中毒反应复杂多变，需全面掌握。”`;
+
+                // Highlight missing options in red
+                missingOptions.forEach(opt => {
+                    document.getElementById(`option-${opt}`).classList.add('wrong-answer');
+                });
+            }
+
+            // Always show next level button and hide confirm button
+            document.querySelector('.confirm-btn').style.display = 'none';
+            document.getElementById('next-level-btn').style.display = 'block';
+        }
+
+        function goToNextLevel() {
+            window.location.href = '../A6/A6.html'; 
+        }
+
+        // Toolbar functions
+        let currentPage = 1;
+        let totalPages = 6;
+
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function showHint() {
+            document.getElementById('hint-popup').style.display = 'flex';
+        }
+
+        function hideHint() {
+            document.getElementById('hint-popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

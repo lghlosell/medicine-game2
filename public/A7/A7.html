@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A7.css">
+</head>
+<body>
+    <!-- Level Name -->
+    <div class="level-name">关卡七.配伍之妙</div>
+    <!-- Location Name -->
+    <div class="location-name">炮制坊</div>
+
+    <!-- Master's Question -->
+    <div class="question-dialog" id="question-dialog">
+        <div class="dialog-content">
+            <p>“真武汤中，生姜与附子相伍，其意何在？”</p>
+        </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-container">
+        <div class="option-card" id="option-A" onclick="toggleOption('A')">A. 减附子的毒性</div>
+        <div class="option-card" id="option-B" onclick="toggleOption('B')">B. 发散水气</div>
+        <div class="option-card" id="option-C" onclick="toggleOption('C')">C. 和胃止呕</div>
+        <div class="option-card" id="option-D" onclick="toggleOption('D')">D. 温补脾阳</div>
+        
+        <button class="confirm-btn" onclick="checkAnswer()">确定</button>
+    </div>
+
+    <!-- Next Level Button (Finish) -->
+    <button class="next-level-btn" id="finish-btn" onclick="finishGame()" style="display: none;">完成历练</button>
+
+    <!-- Right Toolbar -->
+    <div class="game-toolbar">
+        <div class="tool-item" onclick="showBook()" title="查看经文">
+            📖
+        </div>
+        <div class="tool-item" onclick="showHint()" title="查看提示">
+            🔍
+        </div>
+    </div>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: A1 Content -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+                <!-- Page 3: A2 Content -->
+                <div class="book-page" id="book-page-3" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子回阳救逆，熟附子温补命门，二者各有所长</p>
+                    </div>
+                </div>
+                <!-- Page 4: A3 Content -->
+                <div class="book-page" id="book-page-4" style="display: none;">
+                    <div class="book-text">
+                        <p>附子3g以下恐难奏效，15g以上风险陡增，非经验丰富者不可轻用。约合今之3至15克。</p>
+                        <p>炮制得法，剂量适中，方能回阳救逆而不伤正。然需谨记，具体用量须遵医嘱，因人、因证而异。</p>
+                    </div>
+                </div>
+                <!-- Page 5: A4 Content -->
+                <div class="book-page" id="book-page-5" style="display: none;">
+                    <div class="book-text">
+                        <p>真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。</p>
+                        <p>同煎、后下、溶服均无法有效减毒，易致中毒。附子必先煎久煎！</p>
+                    </div>
+                </div>
+                <!-- Page 6: Toxic Signs -->
+                <div class="book-page" id="book-page-6" style="display: none;">
+                    <div class="book-text">
+                        <h3>毒象之辨</h3>
+                        <p>附子之毒可遍及心、神、胃、息，务必警惕。中毒反应复杂多变，需全面掌握。</p>
+                    </div>
+                </div>
+                <!-- Page 7: Antidote Strategies -->
+                <div class="book-page" id="book-page-7" style="display: none;">
+                    <div class="book-text">
+                        <h3>解毒之策</h3>
+                        <p><strong>蜂蜜：</strong>润燥滑肠、缓急止痛，外用解毒生肌，内服可缓中和药、润肺止咳。</p>
+                        <p><strong>甘草：</strong>补脾益气、清热解毒、调和诸药，被誉为“国老”，能缓峻药之烈、解百药之毒。</p>
+                        <p><strong>绿豆：</strong>清热解暑、利尿解毒，善解药食诸毒，是夏季暑热与中毒急救的常备佳品。</p>
+                        <p style="color: #c62828; font-weight: bold; margin-top: 10px;">蜂蜜、甘草、绿豆可辅助解附子之毒，但最紧要者，是立即送医救治！</p>
+                    </div>
+                </div>
+                <!-- Page 8: True Warrior Soup Details -->
+                <div class="book-page" id="book-page-8" style="display: none;">
+                    <div class="book-text" style="font-size: 1.2rem;">
+                        <h3>真武汤·五味各司其职</h3>
+                        <p><strong>炮附子：</strong>辛热纯阳，温肾助火、回阳救逆，为全方主帅，既化气行水，又温煦脾肾以消阴霾。</p>
+                        <p><strong>白术：</strong>苦温健脾燥湿，助中焦运化水饮，与附子相配，使水有所制而不再内生。</p>
+                        <p><strong>茯苓：</strong>甘淡渗利，走膀胱而利水道，导水湿从小便出，兼宁心安神，防饮邪凌心。</p>
+                        <p><strong>芍药（多用白芍）：</strong>酸敛养血、缓急止痛，监制附子辛燥，使利水而不伤阴，并柔肝舒筋以治瞤动。</p>
+                        <p><strong>生姜：</strong>辛温散水、和胃止呕，既助附子温散表寒，又助苓、术宣行水饮，使内外水湿俱泄。</p>
+                        <p><strong>五味合用：</strong>附子温肾阳以化气，苓、术、姜转运水湿从下而出，芍药敛阴和营，标本兼顾，遂成“温阳利水第一方”。</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 8</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hint Popup -->
+    <div class="popup-overlay" id="hint-popup" style="display: none;" onclick="hideHint()">
+        <div class="popup-content hint-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideHint()">×</div>
+            <div class="hint-content">
+                <h3>提示</h3>
+                <p>真武汤（茯苓、芍药、白术、生姜、炮附子）五味各司其职，共成温阳行水、镇悸止痛之方：</p>
+                <p><strong>炮附子：</strong>辛热纯阳，温肾助火、回阳救逆，为全方主帅，既化气行水，又温煦脾肾以消阴霾。</p>
+                <p><strong>白术：</strong>苦温健脾燥湿，助中焦运化水饮，与附子相配，使水有所制而不再内生。</p>
+                <p><strong>茯苓：</strong>甘淡渗利，走膀胱而利水道，导水湿从小便出，兼宁心安神，防饮邪凌心。</p>
+                <p><strong>芍药（多用白芍）：</strong>酸敛养血、缓急止痛，监制附子辛燥，使利水而不伤阴，并柔肝舒筋以治瞤动。</p>
+                <p><strong>生姜：</strong>辛温散水、和胃止呕，既助附子温散表寒，又助苓、术宣行水饮，使内外水湿俱泄。</p>
+                <p><strong>五味合用：</strong>附子温肾阳以化气，苓、术、姜转运水湿从下而出，芍药敛阴和营，标本兼顾，遂成“温阳利水第一方”。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ending Dialogue -->
+    <div class="ending-dialog-container" id="ending-dialog" style="display: none;" onclick="advanceEndingDialog()">
+        <div class="ending-content">
+            <h3 id="ending-speaker">师父</h3>
+            <p id="ending-text">“善哉！七关已过，附子之性、用、毒、解、配，汝已了然于胸。真武汤之精要，尽在其中矣！”</p>
+            <div class="click-hint">（点击继续）</div>
+        </div>
+        <!-- Return button removed as requested -->
+    </div>
+
+    <!-- Black Screen Overlay -->
+    <div class="black-screen-content" id="black-screen-overlay" style="display: none;" onclick="enterFinalScene()">
+        <div class="narrative-text">
+            <p>师父抬眼看了看窗外，缓声道：“时辰不早，该歇息了。你且静下心来，把今日所得再细细过一遍。”</p>
+            <p>我合起书册，躬身答道：“弟子明白。夜凉露重，师父也早些安歇。”</p>
+            <p>门扉轻阖，脚步声渐远。炮制坊里只剩一盏孤灯，与窗外月色交相辉映。案上《伤寒论》静静躺着，纸页微卷，似在催促我做出选择——</p>
+            <p>是趁夜重温白日记下的条文、炮炙要诀，把根基夯得更实？</p>
+            <p>还是翻开未曾细读的篇章，探一方新知，让好奇再领我前行？</p>
+            <p>灯火摇曳，我提笔却未落，心头暗忖：</p>
+            <p>“复习可固根，新知可拓界；今夜，我选哪条路？”</p>
+        </div>
+        <!-- Choice buttons removed as interaction is now click-anywhere to proceed -->
+    </div>
+
+    <!-- Final Scene Choice Buttons -->
+    <div class="final-scene-choices" id="final-scene-choices" style="display: none;">
+        <button class="final-choice-btn" onclick="choosePath('review')">温习旧知</button>
+        <button class="final-choice-btn" onclick="choosePath('explore')">探索新知</button>
+    </div>
+
+    <script>
+        // Game State
+        let currentDroppable = null;
+        let score = 0;
+        
+        // Toolbar functions
+        let currentPage = 1;
+        let totalPages = 8;
+        
+        // Ending dialogue state
+        let endingStep = 0;
+        
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function showHint() {
+            document.getElementById('hint-popup').style.display = 'flex';
+        }
+
+        function hideHint() {
+            document.getElementById('hint-popup').style.display = 'none';
+        }
+
+        const selectedOptions = new Set();
+        const correctOptions = new Set(['A', 'B', 'C']);
+        let isSolved = false;
+        let autoOpenBookTimeout; // Store timeout ID to cancel if needed
+
+        function toggleOption(option) {
+            if (isSolved) return;
+
+            const el = document.getElementById(`option-${option}`);
+            if (selectedOptions.has(option)) {
+                selectedOptions.delete(option);
+                el.classList.remove('selected');
+            } else {
+                selectedOptions.add(option);
+                el.classList.add('selected');
+            }
+        }
+
+        function checkAnswer() {
+            if (isSolved) return;
+
+            const dialogText = document.querySelector('.dialog-content p');
+            const isEqual = (a, b) => a.size === b.size && [...a].every(value => b.has(value));
+
+            // Reset styles
+            ['A', 'B', 'C', 'D'].forEach(opt => {
+                document.getElementById(`option-${opt}`).classList.remove('dimmed', 'correct-answer', 'wrong-answer');
+            });
+
+            if (isEqual(selectedOptions, correctOptions)) {
+                // Correct
+                isSolved = true;
+                dialogText.textContent = "“妙哉！生姜既能佐制附子之毒，又能助其发散在表在里的寒湿水气，更能调和胃气，止其呕逆。此乃相畏相使之典范！”";
+                dialogText.style.color = "#2e7d32";
+                
+                // Highlight correct answers
+                ['A', 'B', 'C'].forEach(opt => {
+                    document.getElementById(`option-${opt}`).classList.add('correct-answer');
+                });
+
+                document.querySelector('.confirm-btn').style.display = 'none';
+                document.getElementById('finish-btn').style.display = 'block';
+
+                // Show Book on Page 8
+                autoOpenBookTimeout = setTimeout(() => {
+                    currentPage = 8;
+                    updatePagination();
+                    showBook();
+                }, 1500); // Delay slightly to let user read the master's dialogue
+
+            } else {
+                // Incorrect
+                dialogText.textContent = "“生姜于此，重在解毒、散水、和胃。温补脾阳之功，当属白术为主。再思之。”";
+                dialogText.style.color = "#c62828";
+                
+                // Feedback logic:
+                // D darken (dimmed)
+                // A, B, C emphasized (maybe show them as hinted or just normal? User said "emphasized")
+                
+                // If D is selected or just present, dim it
+                const d = document.getElementById('option-D');
+                d.classList.add('dimmed');
+                
+                // Shake effect
+                const dialog = document.getElementById('question-dialog');
+                dialog.style.animation = 'none';
+                dialog.offsetHeight; /* trigger reflow */
+                dialog.style.animation = 'shake 0.5s';
+            }
+        }
+
+        function finishGame() {
+            // Cancel auto-opening of book if it hasn't happened yet
+            if (autoOpenBookTimeout) {
+                clearTimeout(autoOpenBookTimeout);
+                autoOpenBookTimeout = null;
+            }
+
+            // Switch background
+            document.body.style.backgroundImage = "url('../../assets/img/bg8.png')";
+            
+            // Hide game elements to show the full background
+            document.querySelector('.level-name').style.display = 'none';
+            document.querySelector('.location-name').style.display = 'none';
+            document.getElementById('question-dialog').style.display = 'none';
+            document.querySelector('.options-container').style.display = 'none';
+            document.querySelector('.game-toolbar').style.display = 'none';
+            document.getElementById('finish-btn').style.display = 'none'; // Hide the button itself
+            
+            // Ensure popups are closed
+            hideBook();
+            hideHint();
+
+            // Show ending dialogue
+            document.getElementById('ending-dialog').style.display = 'flex';
+        }
+
+        function advanceEndingDialog() {
+            if (endingStep === 0) {
+                // Switch to Apprentice
+                document.getElementById('ending-speaker').textContent = "我";
+                document.getElementById('ending-text').textContent = "“哪里，不敢当，您过誉了！”";
+                endingStep++;
+            } else if (endingStep === 1) {
+                // End of dialogue - show narrative on black screen
+                document.getElementById('ending-dialog').style.display = 'none';
+                document.getElementById('black-screen-overlay').style.display = 'flex';
+                // Temporarily hide toolbar if it was visible (it was hidden in finishGame)
+                document.body.style.backgroundImage = 'none';
+                document.body.style.backgroundColor = 'black';
+                endingStep++;
+            }
+        }
+
+        function enterFinalScene() {
+            // Hide black screen overlay
+            document.getElementById('black-screen-overlay').style.display = 'none';
+            
+            // Set background to bg9.png
+            document.body.style.backgroundImage = "url('../../assets/img/bg9.png')";
+            document.body.style.backgroundColor = ''; // Reset background color
+            
+            // Show toolbar with book icon only
+            const toolbar = document.querySelector('.game-toolbar');
+            toolbar.style.display = 'flex';
+            
+            // Hide hint icon, show only book icon
+            // Assuming the first child is book, second is hint
+            // toolbar.children[0] is Book, toolbar.children[1] is Hint
+            toolbar.children[1].style.display = 'none'; 
+            toolbar.children[0].style.display = 'flex';
+
+            // Show final choice buttons
+            document.getElementById('final-scene-choices').style.display = 'flex';
+        }
+
+        function choosePath(path) {
+            if (path === 'review') {
+                // 温习旧知 -> Go to Start Screen
+                window.location.href = '../../public/Start/index.html';
+            } else {
+                // 探索新知 -> Go to Start Screen
+                window.location.href = '../../Start/index.html';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>真武汤·附子奇缘</title>
+    <link rel="stylesheet" href="A2.css"></link>
+
+</head>
+<body>
+    <!-- Level Name -->
+    <div class="level-name">关卡二.生熟之异</div>
+    <!-- Location Name -->
+    <div class="location-name">药理堂</div>
+
+    <!-- Master's Question -->
+    <div class="question-dialog" id="question-dialog">
+        <div class="dialog-content">
+            <p>“既知用熟附子，可知生、熟附子功效有何不同？”</p>
+        </div>
+    </div>
+
+    <!-- Options -->
+    <div class="options-container">
+        <div class="option-btn" onclick="selectOption('A')">生附子药性峻猛，偏于回阳救逆</div>
+        <div class="option-btn" onclick="selectOption('B')">熟附子偏于温补命门之火</div>
+        <div class="option-btn" onclick="selectOption('C')">上述都不对</div>
+    </div>
+
+    <!-- Right Toolbar -->
+    <div class="game-toolbar">
+        <div class="tool-item" onclick="showBook()" title="查看经文">
+            📖
+        </div>
+        <div class="tool-item" onclick="showHint()" title="查看提示">
+            🔍
+        </div>
+    </div>
+
+    <!-- Book Popup -->
+    <div class="popup-overlay" id="book-popup" style="display: none;" onclick="hideBook()">
+        <div class="popup-content book-style" onclick="event.stopPropagation()">
+            <div class="close-btn" onclick="hideBook()">×</div>
+            <div class="book-pages">
+                <!-- Page 1: Scripture -->
+                <div class="book-page" id="book-page-1">
+                    <div class="book-text">
+                        <p>“太阳病，发汗，汗出不解，其人仍发热，心下悸，头眩，身瞤动，振振欲擗地者，<span class="highlight-red">真武汤</span>主之。”</p>
+                        <p>“少阴病，二三日不已，至四五日，腹痛，小便不利，四肢沉重疼痛，自下利者，此为有水气。其人或咳，或小便利，或下利，或呕者，<span class="highlight-red">真武汤</span>主之。”</p>
+                    </div>
+                </div>
+                <!-- Page 2: A1 Content -->
+                <div class="book-page" id="book-page-2" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
+                        <p>生附子毒性猛烈，多用于回阳救逆之急救，不合适真武汤。熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。</p>
+                    </div>
+                </div>
+                <!-- Page 3: A2 Content -->
+                <div class="book-page" id="book-page-3" style="display: none;">
+                    <div class="book-text">
+                        <p>生附子回阳救逆，熟附子温补命门，二者各有所长</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Pagination Controls -->
+            <div class="book-pagination" id="book-pagination" style="display: flex;">
+                <button class="page-btn" id="prev-btn" onclick="changePage(-1)" disabled>上一页</button>
+                <span class="page-indicator" id="page-indicator">1 / 2</span>
+                <button class="page-btn" id="next-btn" onclick="changePage(1)">下一页</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Next Level Button -->
+    <div class="next-level-btn" id="next-level-btn" onclick="nextLevel()" style="display: none;">下一关</div>
+
+    <script>
+        // Track selected options
+        let selectedOptions = new Set();
+        let currentPage = 1;
+        let totalPages = 2; // Initially 2 pages (from A1) are unlocked
+
+        function selectOption(option) {
+            const dialogContent = document.querySelector('#question-dialog .dialog-content p');
+            const options = document.querySelectorAll('.option-btn');
+            
+            // Get button element
+            let btn;
+            if (option === 'A') btn = options[0];
+            if (option === 'B') btn = options[1];
+            if (option === 'C') btn = options[2];
+
+            // Toggle selection logic
+            if (option === 'C') {
+                // If C is clicked, it's incorrect
+                btn.classList.add('option-incorrect');
+                dialogContent.textContent = "“非也，非也。生熟附子功效确有不同，需细细体会。”";
+                // Reset other selections if C is clicked? Or just show error?
+                // Let's keep A/B selected if they were, but mark C as wrong.
+                setTimeout(() => {
+                    btn.classList.remove('option-incorrect'); // Remove error style after a moment
+                }, 1000);
+            } else {
+                // If A or B is clicked
+                if (!selectedOptions.has(option)) {
+                    selectedOptions.add(option);
+                    btn.classList.add('option-correct');
+                }
+                
+                // Check if both A and B are selected
+                if (selectedOptions.has('A') && selectedOptions.has('B')) {
+                    dialogContent.textContent = "“孺子可教也！生附子回阳救逆，熟附子温补命门，二者各有所长。随为师来第三关吧”";
+                    
+                    // Show next level button
+                    document.getElementById('next-level-btn').style.display = 'block';
+
+                    // Unlock 3rd page in book
+                    if (totalPages < 3) {
+                        totalPages = 3;
+                        updatePagination();
+                        // Optional: Show notification on book icon
+                        const bookIcon = document.querySelector('.tool-item[title="查看经文"]');
+                        bookIcon.style.position = 'relative';
+                        const dot = document.createElement('div');
+                        dot.style.cssText = "position: absolute; top: 0; right: 0; width: 10px; height: 10px; background: red; border-radius: 50%;";
+                        bookIcon.appendChild(dot);
+                    }
+                } else if (selectedOptions.has('A')) {
+                    dialogContent.textContent = "“不错，生附子确有回阳救逆之功，那熟附子呢？”";
+                } else if (selectedOptions.has('B')) {
+                    dialogContent.textContent = "“然也，熟附子擅补命门之火，那生附子呢？”";
+                }
+            }
+        }
+
+        function showBook() {
+            document.getElementById('book-popup').style.display = 'flex';
+            // Remove notification dot if exists
+            const bookIcon = document.querySelector('.tool-item[title="查看经文"]');
+            if (bookIcon.lastChild.tagName === 'DIV') {
+                bookIcon.removeChild(bookIcon.lastChild);
+            }
+        }
+
+        function hideBook() {
+            document.getElementById('book-popup').style.display = 'none';
+        }
+
+        function changePage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 1 && newPage <= totalPages) {
+                currentPage = newPage;
+                updatePagination();
+            }
+        }
+
+        function updatePagination() {
+            // Hide all pages
+            document.querySelectorAll('.book-page').forEach(page => page.style.display = 'none');
+            // Show current page
+            document.getElementById(`book-page-${currentPage}`).style.display = 'block';
+            
+            // Update page indicator
+            document.getElementById('page-indicator').textContent = `${currentPage} / ${totalPages}`;
+            
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentPage === 1;
+            document.getElementById('next-btn').disabled = currentPage === totalPages;
+        }
+
+        function showHint() {
+            alert("提示：回顾上一关师父的教诲。");
+        }
+
+        function nextLevel() {
+            window.location.href = '../A3/A3.html';
+        }
+    </script>
+</body>
+</html>
