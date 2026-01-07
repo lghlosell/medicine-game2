@@ -491,10 +491,14 @@ body {
 }
 
 .narrative-text {
+    width: 80%;
     max-width: 800px;
     font-size: 1.6rem;
-    line-height: 1.8;
-    margin-bottom: 40px;
+    font-weight: bold;
+    line-height: 2;
+    /* letter-spacing: 0.2rem; */
+    animation: fadeIn 2s ease-in;
+    /* margin-bottom: 40px; */
     text-align: justify;
 }
 

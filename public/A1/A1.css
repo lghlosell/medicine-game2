@@ -43,7 +43,8 @@ body{
 .intro-text {
     width: 80%;
     max-width: 800px;
-    font-size: 1.6rem;
+    font-size: 2.4rem;
+    font-weight: bold;
     line-height: 2;
     letter-spacing: 0.2rem;
     animation: fadeIn 2s ease-in;
@@ -59,7 +60,8 @@ body{
     position: absolute;
     bottom: 50px;
     right: 50px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
+    font-weight: bold;
     color: rgba(255, 255, 255, 0.6);
     animation: pulse 2s infinite;
 }

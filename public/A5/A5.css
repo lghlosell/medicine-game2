@@ -27,15 +27,14 @@ body {
 }
 
 .intro-text {
+    width: 80%;
     color: white;
-    font-size: 2.5rem;
+    max-width: 800px;
+    font-size: 2.4rem;
     font-weight: bold;
-    max-width: 1000px;
-    text-align: center;
-    line-height: 1.8;
-    opacity: 1; /* Start visible */
-    transition: opacity 1s ease-in-out;
-    margin: 20px 0;
+    line-height: 2;
+    letter-spacing: 0.2rem;
+    animation: fadeIn 2s ease-in;
 }
 
 /* Initially hide the second text but keep opacity transition ready */

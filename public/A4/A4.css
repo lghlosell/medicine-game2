@@ -467,3 +467,13 @@ body {
     background-color: rgba(93, 64, 55, 1);
     transform: scale(1.05);
 }
+
+.continue-hint {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+    animation: pulse 2s infinite;
+}
