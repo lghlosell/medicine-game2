@@ -373,3 +373,36 @@ body{
     background-color: rgba(93, 64, 55, 1);
     transform: scale(1.05);
 }
+
+/* Mobile Portrait Orientation Prompt */
+@media screen and (orientation: portrait) and (max-width: 1024px) {
+    body::after {
+        content: "为了更好的体验\A请将手机旋转至横屏";
+        white-space: pre-wrap;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #3e2723;
+        color: #fff;
+        z-index: 99999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        font-family: "KaiTi", "STKaiti", serif;
+        line-height: 1.5;
+        pointer-events: none; /* Allows scrolling if needed, but blocks clicks visually */
+    }
+    
+    /* Hide game interactive elements to prevent accidental clicks */
+    body > *:not(script):not(style) {
+        visibility: hidden;
+    }
+    
+    /* Ensure the prompt itself is visible (body::after is part of body, so we hide children, not body itself) */
+    /* Note: visibility:hidden on children works well */
+}
