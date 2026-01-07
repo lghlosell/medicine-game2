@@ -7,15 +7,17 @@
     <link rel="stylesheet" href="A6.css">
 </head>
 <body>
+    <!-- Audio -->
+    <audio id="intro-voice" src="../../assets/voice/voice10.mp3" preload="auto"></audio>
+
     <!-- Level Name -->
-    <div class="level-name">关卡六.解毒之策</div>
     <!-- Location Name -->
-    <div class="location-name">炮制坊</div>
+    <div class="location-name">关卡六.解毒之策</div>
 
     <!-- Master's Question -->
     <div class="question-dialog" id="question-dialog">
         <div class="dialog-content">
-            <p>“一旦察觉中毒，当如何应对？”</p>
+            <p>“一旦察觉中毒，当如何应对？”<br>（多选）</p>
         </div>
     </div>
 
@@ -34,6 +36,7 @@
         <div class="herb-circle" id="herb-5" onclick="selectHerb(5)"></div>
         <div class="herb-circle" id="herb-6" onclick="selectHerb(6)"></div>
         <div class="herb-circle" id="herb-7" onclick="selectHerb(7)"></div>
+        <div class="herb-circle" id="herb-8" onclick="selectHerb(8)"></div>
     </div>
 
     <!-- Confirm Button (Right of Table) -->
@@ -130,7 +133,7 @@
                 <p><strong>枸杞：</strong>滋补肝肾、益精明目，久服轻身耐老，为平补阴阳的日常明目抗衰果。</p>
                 <p><strong>白芍：</strong>养血柔肝、缓急止痛、敛阴止汗，与甘草同用可调营和血、舒缓痉挛。</p>
                 <p><strong>人参：</strong>大补元气、复脉固脱、益智生津，为拯危救脱之第一要药，可顷刻回阳助脉。</p>
-                <p><strong>桂皮（肉桂）：</strong>补火助阳、引火归元、散寒温脉，善治命门火衰、寒凝血滞之冷痛。</p>
+                <p><strong>女贞子：</strong>滋补肝肾、明目乌发，善治阴虚内热，为清补之品。</p>
             </div>
         </div>
     </div>
@@ -173,7 +176,7 @@
         }
 
         const selectedHerbs = new Set();
-        const correctHerbs = new Set([1, 2, 7]); // 蜂蜜, 甘草, 绿豆
+        const correctHerbs = new Set([1, 2, 7, 8]); // 蜂蜜, 甘草, 绿豆, 生姜
         let isSolved = false;
 
         const herbNames = {
@@ -182,8 +185,9 @@
             3: "白芍",
             4: "人参",
             5: "枸杞",
-            6: "桂皮",
-            7: "绿豆"
+            6: "女贞子",
+            7: "绿豆",
+            8: "生姜"
         };
 
         function selectHerb(id) {
@@ -194,11 +198,11 @@
             if (selectedHerbs.has(id)) {
                 selectedHerbs.delete(id);
                 herbElement.classList.remove('selected');
-                herbElement.textContent = ""; // Hide text
+                // No text manipulation
             } else {
                 selectedHerbs.add(id);
                 herbElement.classList.add('selected');
-                herbElement.textContent = herbNames[id]; // Show text
+                // No text manipulation
             }
         }
 
@@ -212,21 +216,9 @@
 
             if (isEqual(selectedHerbs, correctHerbs)) {
                 isSolved = true;
-                dialogText.textContent = "“周全！蜂蜜、甘草、绿豆可辅助解毒，但最紧要者，是立即送医救治！”";
+                dialogText.textContent = "“周全！蜂蜜、甘草、绿豆、生姜可辅助解毒，但最紧要者，是立即送医救治！”";
                 dialogText.style.color = "#2e7d32"; // Green text for success
                 document.querySelector('.confirm-selection-btn').style.display = 'none';
-                
-                // Reveal all herb names
-                for (let i = 1; i <= 7; i++) {
-                    const el = document.getElementById(`herb-${i}`);
-                    el.textContent = herbNames[i];
-                    if (!selectedHerbs.has(i)) {
-                        el.classList.add('show-name');
-                    } else {
-                        // Correct ones stay green but ensure they use the correct text-shadow style
-                        el.classList.add('selected'); 
-                    }
-                }
                 
                 // Show next level button
                 document.getElementById('next-level-btn').style.display = 'block';
@@ -245,6 +237,19 @@
         function goToNextLevel() {
             window.location.href = '../A7/A7.html';
         }
+
+        // Auto play audio on load
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('intro-voice');
+            audio.play().catch(error => {
+                console.log("Autoplay prevented:", error);
+                // Optional: Add a UI element to let user manually play if autoplay is blocked
+                document.body.addEventListener('click', () => {
+                    audio.play();
+                }, { once: true });
+            });
+        });
     </script>
+    <a class="back-btn" href="../A5/A5.html">返回上一关</a>
 </body>
 </html>

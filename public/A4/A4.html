@@ -7,15 +7,18 @@
     <link rel="stylesheet" href="A4.css"></link>
 </head>
 <body>
+    <!-- Audio for page load -->
+    <audio id="intro-voice" src="../../assets/voice/voice8.mp3" preload="auto"></audio>
+
     <!-- Level Name -->
-    <div class="level-name">关卡四.煎煮之秘</div>
+    <div class="location-name">关卡四.煎煮之秘</div>
     <!-- Location Name -->
-    <div class="location-name">煎药房</div>
+    <!-- <div class="location-name">煎药房</div> -->
 
     <!-- Master's Question -->
     <div class="question-dialog" id="question-dialog">
         <div class="dialog-content">
-            <p>“真武汤需茯苓三两，芍药三两，白术二两，生姜三两，炮附子一枚。以水八升，煮取三升，去滓，温服七合，日三服。附子虽好，毒性犹存。如何煎煮，方能祛毒存效？”</p>
+            <p>“熟附子虽良效显著，毒性却仍未散尽。即便剂量已然适宜，就能断言其毒性尽除吗？又当如何煎煮，方可祛毒存效？”（单选）</p>
         </div>
     </div>
 
@@ -124,6 +127,20 @@
     </div>
 
     <script>
+        // Play audio on load
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('intro-voice');
+            if(audio) {
+                audio.play().catch(function(error) {
+                    console.log("Autoplay prevented:", error);
+                    // If autoplay is blocked, play on first user interaction
+                    document.body.addEventListener('click', function() {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        });
+
         let currentPage = 1;
         let totalPages = 5;
 
@@ -242,4 +259,6 @@
             }
         }
     </script>
+    <a class="back-btn" href="../A3/A3.html">返回上一关</a>
+</body>
 </html>

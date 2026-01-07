@@ -7,24 +7,27 @@
     <link rel="stylesheet" href="A7.css">
 </head>
 <body>
+    <!-- Audio for intro -->
+    <audio id="intro-voice" src="../../assets/voice/voice11.mp3" preload="auto"></audio>
+
     <!-- Level Name -->
-    <div class="level-name">关卡七.配伍之妙</div>
+    <!-- <div class="level-name">关卡七.配伍之妙</div> -->
     <!-- Location Name -->
-    <div class="location-name">炮制坊</div>
+    <div class="location-name">关卡七.配伍之妙</div>
 
     <!-- Master's Question -->
     <div class="question-dialog" id="question-dialog">
         <div class="dialog-content">
-            <p>“真武汤中，生姜与附子相伍，其意何在？”</p>
+            <p>“真武汤中，生姜与附子相伍，其意何在？”（多选）</p>
         </div>
     </div>
 
     <!-- Options -->
     <div class="options-container">
-        <div class="option-card" id="option-A" onclick="toggleOption('A')">A. 减附子的毒性</div>
-        <div class="option-card" id="option-B" onclick="toggleOption('B')">B. 发散水气</div>
-        <div class="option-card" id="option-C" onclick="toggleOption('C')">C. 和胃止呕</div>
-        <div class="option-card" id="option-D" onclick="toggleOption('D')">D. 温补脾阳</div>
+        <div class="option-card" id="option-A" onclick="toggleOption('A')">减附子的毒性</div>
+        <div class="option-card" id="option-B" onclick="toggleOption('B')">发散水气</div>
+        <div class="option-card" id="option-C" onclick="toggleOption('C')">和胃止呕</div>
+        <div class="option-card" id="option-D" onclick="toggleOption('D')">温补脾阳</div>
         
         <button class="confirm-btn" onclick="checkAnswer()">确定</button>
     </div>
@@ -293,7 +296,7 @@
             document.body.style.backgroundImage = "url('../../assets/img/bg8.png')";
             
             // Hide game elements to show the full background
-            document.querySelector('.level-name').style.display = 'none';
+            // document.querySelector('.level-name').style.display = 'none';
             document.querySelector('.location-name').style.display = 'none';
             document.getElementById('question-dialog').style.display = 'none';
             document.querySelector('.options-container').style.display = 'none';
@@ -356,6 +359,21 @@
                 window.location.href = '../../Start/index.html';
             }
         }
+
+        // Auto play audio on load
+        window.addEventListener('load', () => {
+            const audio = document.getElementById('intro-voice');
+            if (audio) {
+                audio.play().catch(error => {
+                    console.log("Autoplay prevented:", error);
+                    // Optional: Add a UI element to let user manually play if autoplay is blocked
+                    document.body.addEventListener('click', () => {
+                        audio.play();
+                    }, { once: true });
+                });
+            }
+        });
     </script>
+    <a class="back-btn" href="../A6/A6.html">返回上一关</a>
 </body>
 </html>

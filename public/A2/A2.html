@@ -9,14 +9,14 @@
 </head>
 <body>
     <!-- Level Name -->
-    <div class="level-name">关卡二.生熟之异</div>
+    <div class="location-name">关卡二.生熟之异</div>
     <!-- Location Name -->
-    <div class="location-name">药理堂</div>
+    <!-- <div class="location-name">药理堂</div> -->
 
     <!-- Master's Question -->
     <div class="question-dialog" id="question-dialog">
         <div class="dialog-content">
-            <p>“既知用熟附子，可知生、熟附子功效有何不同？”</p>
+            <p>“既知用熟附子，可知生、熟附子功效有何不同？”（多选）</p>
         </div>
     </div>
 
@@ -176,6 +176,13 @@
         function nextLevel() {
             window.location.href = '../A3/A3.html';
         }
+
+        // Play voice6 on load
+        window.onload = function() {
+            const audio = new Audio('../../assets/voice/voice6.mp3');
+            audio.play().catch(e => console.error("Error playing voice6:", e));
+        };
     </script>
+    <a class="back-btn" href="../A1/A1.html">返回上一关</a>
 </body>
 </html>

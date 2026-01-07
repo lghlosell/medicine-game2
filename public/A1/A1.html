@@ -11,12 +11,13 @@
     <div class="intro-screen" id="intro-screen" onclick="hideIntro()">
         <div class="intro-text">
             <p>随后，我与师父来到了炮制坊，坊内两侧摆放着整齐的竹制药架，上面晾晒着各类药材，阳光透过雕花木窗洒进来，在地面投下斑驳的光影。正中央的石台上，摆放着两个陶制托盘，分别盛放着两种不同的附子。</p>
-            <p>左侧托盘里的生附子，呈乌黑之色，带着粗糙的外皮，形状不规则，凑近能闻到一股轻微的辛辣腥气；右侧托盘里的熟附子，是黄白色的切片，质地温润，表面光滑，散发着淡淡的药香。</p>
         </div>
         <div class="continue-hint">点击屏幕任意处继续</div>
     </div>
 
     <script>
+        let currentAudio = null;
+
         // Custom Cursor Logic
         document.addEventListener('mousemove', (e) => {
             const cursor = document.getElementById('custom-cursor');
@@ -34,6 +35,16 @@
             document.getElementById('tray-arrows').style.display = 'block';
             document.getElementById('tray-click-areas').style.display = 'block';
             document.getElementById('custom-cursor').style.display = 'block';
+
+            // Stop previous audio
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+
+            // Play voice4
+            currentAudio = new Audio('../../assets/voice/voice4.mp3');
+            currentAudio.play().catch(e => console.error("Error playing voice4:", e));
         }
 
         function showBook() {
@@ -85,6 +96,16 @@
             } else {
                 // Correct: 熟附子
                 dialogContent.textContent = "“不错！熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。”";
+                
+                // Stop previous audio
+                if (currentAudio) {
+                    currentAudio.pause();
+                    currentAudio = null;
+                }
+
+                // Play voice5
+                currentAudio = new Audio('../../assets/voice/voice5.mp3');
+                currentAudio.play().catch(e => console.error("Error playing voice5:", e));
             }
         }
 
@@ -111,14 +132,7 @@
         }
 
         function nextLevel() {
-            const dialogContent = document.querySelector('#question-dialog .dialog-content p');
-            dialogContent.textContent = "“你已经通过了第一关了，随为师去下一关吧”";
-            document.getElementById('continue-btn').style.display = 'none'; // Optional: hide button after click
-
-            // Wait 4 seconds then redirect
-            setTimeout(() => {
-                window.location.href = '../A2/A2.html';
-            }, 4000);
+            window.location.href = '../A2/A2.html';
         }
     </script>
 
@@ -127,12 +141,11 @@
 
     <!-- Location Name -->
     <div class="level-name">关卡一.炮制之辨</div>
-    <div class="location-name">炮制坊</div>
 
     <!-- Master's Question -->
     <div class="question-dialog" id="question-dialog" style="display: none;">
         <div class="dialog-content">
-            <p>“徒儿，真武汤中所用之附子，是这生猛的生附子，还是这温煦的熟附子？”</p>
+            <p>“徒儿，真武汤中所用之附子，是这生附子，还是这熟附子？”</p>
         </div>
     </div>
 
@@ -197,6 +210,7 @@
         </div>
     </div>
     <!-- Continue Button -->
-    <div id="continue-btn" class="continue-btn" onclick="nextLevel()" style="display: none;">继续</div>
+    <div id="continue-btn" class="continue-btn" onclick="nextLevel()" style="display: none;">下一关</div>
+    <a class="back-btn" href="../A0/A0.html">返回上一关</a>
 </body>
 </html>

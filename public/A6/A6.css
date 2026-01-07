@@ -13,11 +13,11 @@ body {
 /* Question Dialog */
 .question-dialog {
     position: absolute;
-    top: 4%;
-    left: 16%;
+    top: 2%;
+    left: 26%;
     transform: translateX(-50%);
     width: 80%;
-    max-width: 420px;
+    max-width: 550px;
     background-color: rgba(255, 248, 225, 0.95);
     border: 3px solid #4a3728;
     border-radius: 15px;
@@ -31,11 +31,14 @@ body {
 }
 
 .dialog-content {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #3e2723;
     line-height: 1.6;
     font-weight: bold;
     text-align: center;
+    p{
+        margin: 10px;
+    }
 }
 
 @keyframes slideUp {
@@ -317,22 +320,22 @@ body {
 }
 
 .location-name {
-    position: absolute;
+    position: fixed;
     top: 30px;
-    right: 100px; /* Adjusted position to be left of level name */
-    left: auto; /* Reset left */
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #5d4037;
+    right: 30px;
+    font-size: 2.5rem;
+    color: #3e2723;
     writing-mode: vertical-rl;
     text-orientation: upright;
-    letter-spacing: 0.3rem;
+    font-weight: bold;
+    letter-spacing: 0.5rem;
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6), 0 0 10px rgba(0,0,0,0.1);
     z-index: 100;
     background-color: rgba(255, 248, 225, 0.8);
-    padding: 10px 8px;
-    border: 2px solid #8d6e63;
-    border-radius: 6px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    padding: 15px 10px;
+    border: 2px solid #5d4037;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 /* Herb Circles */
@@ -388,18 +391,22 @@ body {
 
 /* Initial positions for herbs - User to adjust */
 #herb-1 { top: 66%; left: 40%; }
-#herb-2 { top: 65%; left: 50%; }
+#herb-2 { top: 67%; left: 49%; }
 #herb-3 { top: 75%; left: 56%; }
 #herb-4 { top: 75%; left: 50%; }
 #herb-5 { top: 75%; left: 64%; }
 #herb-6 { top: 71%; left: 72%; }
 #herb-7 { top: 66%; left: 63%; }
+#herb-8 { top: 74%; left: 35%; }
+
+
 
 /* Confirm Selection Button */
 .confirm-selection-btn {
     position: absolute;
-    top: 60%;
-    right: 20%; /* Right of the table area */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 15px 30px;
     font-size: 1.5rem;
     background-color: #d32f2f;
@@ -415,7 +422,7 @@ body {
 
 .confirm-selection-btn:hover {
     background-color: #b71c1c;
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
 }
 
 @keyframes shake {
@@ -454,4 +461,30 @@ body {
     0% { box-shadow: 0 0 0 0 rgba(56, 142, 60, 0.7); }
     70% { box-shadow: 0 0 0 15px rgba(56, 142, 60, 0); }
     100% { box-shadow: 0 0 0 0 rgba(56, 142, 60, 0); }
+}
+
+/* Return to Previous Level Button */
+.back-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: rgba(62, 39, 35, 0.8);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2000;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn:hover {
+    background-color: rgba(93, 64, 55, 1);
+    transform: scale(1.05);
 }

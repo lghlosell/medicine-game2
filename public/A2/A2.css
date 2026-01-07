@@ -16,12 +16,12 @@ body {
     top: 2%;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
-    max-width: 700px;
+    width: 100%;
+    max-width: 780px;
     background-color: rgba(255, 248, 225, 0.95);
     border: 3px solid #4a3728;
     border-radius: 15px;
-    padding: 30px;
+    padding: 10px;
     display: flex;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -42,7 +42,7 @@ body {
 }
 
 .dialog-content {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #3e2723;
     line-height: 1.6;
     font-weight: bold;
@@ -90,7 +90,7 @@ body {
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    max-width: 800px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -101,9 +101,10 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     border: 2px solid #8d6e63;
     border-radius: 10px;
-    padding: 20px 30px;
-    font-size: 1.4rem;
+    padding: 10px 30px;
+    font-size: 1.8rem;
     color: #3e2723;
+    font-weight: bold;
     cursor: pointer;
     transition: all 0.2s ease;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
@@ -165,20 +166,19 @@ body {
     position: fixed;
     bottom: 30px;
     right: 30px;
+    padding: 15px 40px;
     font-size: 1.8rem;
+    background-color: #d32f2f;
     color: #fff;
-    background-color: #8d6e63;
-    padding: 10px 30px;
-    border: 3px solid #5d4037;
+    border: 3px solid #b71c1c;
     border-radius: 50px;
     cursor: pointer;
+    font-family: "KaiTi", "STKaiti", serif;
+    font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     z-index: 200;
-    transition: all 0.2s ease;
-    font-family: "KaiTi", "STKaiti", "SimSun", serif;
-    font-weight: bold;
-    letter-spacing: 0.2rem;
     animation: pulse 2s infinite;
+    display: none; /* Hidden by default */
 }
 
 .next-level-btn:hover {
@@ -319,4 +319,30 @@ body {
 @keyframes scaleIn {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+/* Return to Previous Level Button */
+.back-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: rgba(62, 39, 35, 0.8);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2000;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn:hover {
+    background-color: rgba(93, 64, 55, 1);
+    transform: scale(1.05);
 }

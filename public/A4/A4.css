@@ -15,14 +15,15 @@ body {
 .question-dialog {
     position: absolute;
     top: 2%;
-    left: 76%;
+    /* left: 76%; */
     transform: translateX(-50%);
     width: 80%;
-    max-width: 550px;
+    left: 740px;
+    max-width: 1000px;
     background-color: rgba(255, 248, 225, 0.95);
     border: 3px solid #4a3728;
     border-radius: 15px;
-    padding: 10px 5px;
+    padding: 5px 5px;
     display: flex;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.3);
@@ -31,10 +32,14 @@ body {
 }
 
 .dialog-content {
-    font-size: 1.6rem;
+    font-size: 1.8rem;
     color: #3e2723;
     line-height: 1.6;
     font-weight: bold;
+    p{
+        margin: 0;
+        padding: 5px;
+    }
 }
 
 /* Level Name */
@@ -56,7 +61,7 @@ body {
 .location-name {
     position: fixed;
     top: 30px;
-    left: 110px; /* Positioned to the right of level name */
+    left: 50px; /* Positioned to the right of level name */
     font-size: 2.5rem;
     color: #3e2723;
     writing-mode: vertical-rl;
@@ -435,4 +440,30 @@ body {
     0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.7); }
     70% { box-shadow: 0 0 0 15px rgba(211, 47, 47, 0); }
     100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+}
+
+/* Return to Previous Level Button */
+.back-btn {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: rgba(62, 39, 35, 0.8);
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 2000;
+    font-family: "KaiTi", "STKaiti", "SimSun", serif;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.back-btn:hover {
+    background-color: rgba(93, 64, 55, 1);
+    transform: scale(1.05);
 }
