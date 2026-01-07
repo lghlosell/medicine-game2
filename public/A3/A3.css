@@ -531,7 +531,7 @@ body {
 /* Mobile Portrait Orientation Prompt */
 @media screen and (orientation: portrait) and (max-width: 1024px) {
     body::after {
-        content: "ÎªÁË¸üºÃµÄÌåÑé\AÇë½«ÊÖ»úÐý×ªÖÁºáÆÁ";
+        content: "Îªï¿½Ë¸ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½\Aï¿½ë½«ï¿½Ö»ï¿½ï¿½ï¿½×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
         white-space: pre-wrap;
         position: fixed;
         top: 0;
@@ -561,100 +561,286 @@ body {
     /* Note: visibility:hidden on children works well */
 }
 
+/* Override Mobile Portrait Lock */
+@media screen and (orientation: portrait) and (max-width: 1024px) {
+    body::after {
+        display: none !important;
+        content: none !important;
+    }
+    body > *:not(script):not(style) {
+        visibility: visible !important;
+    }
+}
+
+/* Mobile Adaptation (Portrait/Narrow) */
+@media (max-width: 768px) {
+    /* Global Font Adjustment */
+    html {
+        font-size: 14px;
+    }
+
+    .level-name {
+        font-size: 1.5rem;
+        padding: 10px;
+        top: 10px;
+        left: 10px;
+    }
+
+    .question-dialog {
+        width: 90%;
+        left: 50%;
+        top: 15%;
+        padding: 10px;
+        max-width: none;
+    }
+
+    .master-avatar {
+        width: 60px;
+        height: 60px;
+        margin-right: 10px;
+    }
+
+    .dialog-content {
+        font-size: 1.2rem;
+    }
+
+    .arrow-left {
+        left: 20%;
+    }
+
+    .arrow-right {
+        left: 80%;
+    }
+
+    .popup-content {
+        width: 90%;
+        padding: 20px;
+        max-width: none;
+    }
+
+    .book-text {
+        font-size: 1.2rem;
+        height: 50vh;
+    }
+    
+    .game-toolbar {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        flex-direction: row;
+    }
+    
+    .tool-item {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
 /* =========================================
    Mobile Landscape Adaptation (Universal)
    ========================================= */
 @media screen and (max-height: 600px) and (orientation: landscape) {
     /* Global Font Adjustment */
     html {
-        font-size: 12px; /* Base font size reduction */
+        font-size: 10px !important; /* Reduced base font size */
     }
 
     /* Intro Screen Adjustments */
     .intro-text, .narrative-text {
-        font-size: 1.4rem !important; /* Was 2.4rem */
-        line-height: 1.5 !important;
+        font-size: 2.0rem !important;
+        line-height: 1.8 !important;
         width: 90% !important;
         max-width: none !important;
+        writing-mode: horizontal-tb !important;
+        height: auto !important;
+    }
+
+    .level-name, .location-name {
+        writing-mode: vertical-rl !important;
+        text-orientation: upright !important;
+        font-size: 1.4rem !important;
+        top: 60px !important;
+        left: 15px !important;
+        padding: 10px 5px !important;
+        letter-spacing: 0.1rem !important;
+        width: auto !important;
+        max-width: none !important;
+        white-space: nowrap !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border-radius: 5px;
+    }
+    
+    .location-name {
+        left: 60px !important; /* Offset from level-name if both exist */
+        background: rgba(255, 248, 225, 0.9) !important;
     }
 
     .continue-hint {
-        bottom: 10px !important;
-        right: 10px !important;
-        font-size: 1rem !important;
+        bottom: 5px !important;
+        right: 5px !important;
+        font-size: 0.9rem !important;
     }
 
     /* Dialog/Question Area */
-    .dialog-container, .question-dialog, .intro-box {
-        bottom: 10px !important;
-        width: 90% !important;
-        padding: 10px !important;
-        max-height: 40vh !important;
+    .dialog-container, .intro-box {
+        bottom: auto !important;
+        top: 20% !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 60% !important;
+        padding: 5px 15px !important;
+        max-height: 55vh !important;
         overflow-y: auto !important;
+        border-radius: 15px !important;
+        z-index: 50 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .question-dialog {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 80% !important;
+        padding: 10px 15px !important;
+        max-height: 35vh !important;
+        overflow-y: auto !important;
+        border-radius: 15px !important;
+        z-index: 50 !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 15px !important;
+        background: rgba(255, 248, 225, 0.95) !important;
+        border: 2px solid #5d4037 !important;
     }
     
-    .dialog-bubble p, .dialog-content p {
-        font-size: 1.2rem !important;
-        margin: 5px 0 !important;
+    .question-dialog .dialog-content {
+        text-align: left !important;
+        flex: 1 !important;
+    }
+    
+    .master-avatar {
+        width: 60px !important;
+        height: 60px !important;
+        margin-right: 0 !important;
+        border: 2px solid #8d6e63 !important;
+    }
+
+    /* Target both p inside bubbles and raw dialog content */
+    .dialog-bubble p, .dialog-content p, .dialog-content {
+        font-size: 1.5rem !important;
+        line-height: 1.4 !important;
+        margin: 2px 0 !important;
+        font-weight: bold !important;
     }
 
     /* Options/Choices */
     .options-container {
-        bottom: 10px !important;
+        bottom: 2px !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
         width: 100% !important;
+        gap: 3px !important;
     }
 
     .option-card {
-        padding: 5px 10px !important;
+        padding: 2px 5px !important;
         font-size: 1rem !important;
-        margin: 5px !important;
+        margin: 2px !important;
         width: auto !important;
-        min-width: 100px !important;
-        flex: 1 1 40% !important; /* allow wrapping */
+        min-width: 60px !important;
+        flex: 1 1 25% !important;
     }
 
     /* Buttons */
     .back-btn {
-        top: 10px !important; /* Move to top left to avoid conflict with bottom dialogs */
+        top: 15px !important;
         bottom: auto !important;
-        left: 10px !important;
-        padding: 5px 10px !important;
-        font-size: 1rem !important;
+        left: 15px !important;
+        padding: 5px 12px !important;
+        font-size: 1.0rem !important;
     }
 
     .next-level-btn, .confirm-btn, .continue-btn {
-        bottom: 10px !important;
-        right: 10px !important;
-        padding: 8px 15px !important;
-        font-size: 1.2rem !important;
+        bottom: 2px !important;
+        right: 2px !important;
+        padding: 4px 10px !important;
+        font-size: 1rem !important;
     }
 
     /* Tools/Books */
     .game-toolbar {
-        top: 10px !important;
-        right: 10px !important;
-        flex-direction: row !important; /* Horizontal toolbar */
+        top: 50% !important;
+        right: 15px !important;
+        transform: translateY(-50%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: auto !important;
     }
 
     .tool-item {
-        width: 40px !important;
-        height: 40px !important;
-        font-size: 1.5rem !important;
-        margin: 0 5px !important;
+        font-size: 2.5rem !important;
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
     /* Popups (Book/Hint) */
     .ancient-book-popup, .popup-content {
-        width: 90% !important;
-        height: 90% !important;
-        padding: 15px !important;
+        width: 98% !important;
+        height: 98% !important;
+        padding: 5px !important;
         max-width: none !important;
     }
     
+    .book-text, .hint-text {
+        font-size: 1.6rem !important;
+        line-height: 1.8 !important;
+        font-weight: bold !important;
+    }
+
     .book-text p {
-        font-size: 1.1rem !important;
-        line-height: 1.4 !important;
+        font-size: 1.8rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Scale/Dosage Popup Specifics for Mobile Landscape */
+    .popup-content.scale-content {
+        width: 60% !important;
+        height: auto !important;
+        max-height: 85% !important;
+        padding: 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+    }
+
+    .scale-content .close-btn {
+        top: 5px !important;
+        right: 10px !important;
+        font-size: 2rem !important;
+    }
+
+    .scale-content h2 {
+        font-size: 1.4rem !important;
+        margin-bottom: 30px !important;
+        margin-top: 10px !important;
+    }
+    
+    .scale-content .confirm-btn {
+        padding: 8px 30px !important;
+        font-size: 1.2rem !important;
+        margin-top: 15px !important;
+        margin-bottom: 5px !important;
     }
 }
