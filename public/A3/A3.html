@@ -222,6 +222,11 @@
             // 0: <3g, 1: 3-15g (Correct), 2: >15g
             if (sliderVal === 1) {
                 // Correct range (Medium)
+                const voiceAudio = document.getElementById('intro-voice');
+                if (voiceAudio) {
+                    voiceAudio.pause();
+                }
+
                 dialogContent.textContent = "“善！此乃安全有效之范围，约合今之3至15克。炮制得法，剂量适中，方能回阳救逆而不伤正。然需谨记，具体用量须遵医嘱，因人、因证而异。”";
                 hideScalePopup();
                 // Show next level button

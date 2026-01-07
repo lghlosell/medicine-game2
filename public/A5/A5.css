@@ -130,17 +130,19 @@ body {
 
 /* Confirm Button */
 .confirm-btn {
-    margin-top: 20px;
-    padding: 10px 30px;
-    font-size: 1.5rem;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 20px 50px;
+    font-size: 2rem;
     background-color: #d32f2f;
     color: white;
     border: none;
     border-radius: 50px;
     cursor: pointer;
-    align-self: center;
     font-family: inherit;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 200;
 }
 
 .confirm-btn:hover {
@@ -528,8 +530,8 @@ body {
 
     /* Intro Screen Adjustments */
     .intro-text, .narrative-text {
-        font-size: 1.4rem !important;
-        line-height: 1.6 !important;
+        font-size: 2.0rem !important;
+        line-height: 1.8 !important;
         width: 90% !important;
         max-width: none !important;
         writing-mode: horizontal-tb !important;
@@ -537,20 +539,23 @@ body {
     }
 
     .level-name, .location-name {
-        writing-mode: horizontal-tb !important;
-        text-orientation: mixed !important;
-        font-size: 1.2rem !important;
-        top: 5px !important;
-        left: 5px !important;
-        padding: 5px 10px !important;
+        writing-mode: vertical-rl !important;
+        text-orientation: upright !important;
+        font-size: 1.4rem !important;
+        top: 60px !important;
+        left: 15px !important;
+        right: auto !important;
+        padding: 10px 5px !important;
         letter-spacing: 0.1rem !important;
         width: auto !important;
-        max-width: 40% !important;
+        max-width: none !important;
         white-space: nowrap !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        border-radius: 5px;
     }
     
     .location-name {
-        left: 140px !important; /* Offset from level-name */
+        left: 60px !important; /* Offset from level-name if both exist */
         background: rgba(255, 248, 225, 0.9) !important;
     }
 
@@ -562,66 +567,100 @@ body {
 
     /* Dialog/Question Area */
     .dialog-container, .question-dialog, .intro-box {
-        bottom: 2px !important;
-        width: 98% !important;
-        padding: 4px !important;
-        max-height: 55vh !important;
+        bottom: auto !important;
+        top: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 80% !important;
+        padding: 10px !important;
+        max-height: 40vh !important;
         overflow-y: auto !important;
+        border-radius: 15px !important;
+        z-index: 50 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
     }
     
+    .master-avatar {
+        width: 40px !important;
+        height: 40px !important;
+        margin-right: 10px !important;
+    }
+
     /* Target both p inside bubbles and raw dialog content */
     .dialog-bubble p, .dialog-content p, .dialog-content {
-        font-size: 1.1rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.3rem !important;
+        line-height: 1.4 !important;
         margin: 2px 0 !important;
+        font-weight: bold !important;
     }
 
     /* Options/Choices */
     .options-container {
-        bottom: 2px !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-        width: 100% !important;
-        gap: 3px !important;
+        bottom: auto !important;
+        top: 45% !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        width: 40% !important;
+        flex-direction: column !important;
+        display: flex !important;
+        gap: 10px !important;
+        flex-wrap: nowrap !important;
     }
 
     .option-card {
-        padding: 2px 5px !important;
-        font-size: 1rem !important;
-        margin: 2px !important;
-        width: auto !important;
-        min-width: 60px !important;
-        flex: 1 1 25% !important;
+        padding: 8px !important;
+        font-size: 1.1rem !important;
+        margin: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        flex: auto !important;
+        text-align: center !important;
+    }
+
+    .image-preview-container {
+        height: 160px !important;
+        right: 15% !important;
     }
 
     /* Buttons */
     .back-btn {
-        top: 2px !important;
+        top: 15px !important;
         bottom: auto !important;
-        left: 2px !important;
-        padding: 2px 6px !important;
-        font-size: 0.9rem !important;
+        left: 15px !important;
+        padding: 5px 12px !important;
+        font-size: 1.0rem !important;
     }
 
     .next-level-btn, .confirm-btn, .continue-btn {
-        bottom: 2px !important;
-        right: 2px !important;
-        padding: 4px 10px !important;
-        font-size: 1rem !important;
+        bottom: 5px !important;
+        right: 5px !important;
+        padding: 8px 20px !important;
+        font-size: 1.2rem !important;
     }
 
     /* Tools/Books */
     .game-toolbar {
-        top: 2px !important;
-        right: 2px !important;
-        flex-direction: row !important;
+        top: 50% !important;
+        right: 15px !important;
+        transform: translateY(-50%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: auto !important;
     }
 
     .tool-item {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 1.2rem !important;
-        margin: 0 2px !important;
+        font-size: 2.5rem !important;
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
     /* Popups (Book/Hint) */
@@ -632,8 +671,14 @@ body {
         max-width: none !important;
     }
     
+    .book-text, .hint-text {
+        font-size: 1.6rem !important;
+        line-height: 1.8 !important;
+        font-weight: bold !important;
+    }
+
     .book-text p {
-        font-size: 1.1rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.8rem !important;
+        line-height: 1.6 !important;
     }
 }

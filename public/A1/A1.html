@@ -69,6 +69,12 @@
         function selectTray(side) {
             console.log("Selected tray:", side);
             
+            // Stop previous audio (Question voice)
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio = null;
+            }
+
             // Hide custom cursor on selection
             document.getElementById('custom-cursor').style.display = 'none';
             // Hide arrows
@@ -97,12 +103,6 @@
                 // Correct: 熟附子
                 dialogContent.textContent = "“不错！熟附子经炮制，毒性大减，药性温煦持久，正合真武汤温阳利水之需。”";
                 
-                // Stop previous audio
-                if (currentAudio) {
-                    currentAudio.pause();
-                    currentAudio = null;
-                }
-
                 // Play voice5
                 currentAudio = new Audio('../../assets/voice/voice5.mp3');
                 currentAudio.play().catch(e => console.error("Error playing voice5:", e));

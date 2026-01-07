@@ -216,6 +216,12 @@
 
             if (isEqual(selectedHerbs, correctHerbs)) {
                 isSolved = true;
+
+                const voiceAudio = document.getElementById('intro-voice');
+                if (voiceAudio) {
+                    voiceAudio.pause();
+                }
+
                 dialogText.textContent = "“周全！蜂蜜、甘草、绿豆、生姜可辅助解毒，但最紧要者，是立即送医救治！”";
                 dialogText.style.color = "#2e7d32"; // Green text for success
                 document.querySelector('.confirm-selection-btn').style.display = 'none';

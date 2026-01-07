@@ -713,11 +713,18 @@ body {
     }
 
     /* Intro Screen Adjustments */
+    .black-screen-content {
+        padding: 10px !important;
+    }
+
     .intro-text, .narrative-text {
-        font-size: 1.4rem !important;
+        font-size: 1.5rem !important;
         line-height: 1.6 !important;
         width: 95% !important;
         max-width: none !important;
+        writing-mode: horizontal-tb !important;
+        height: auto !important;
+        margin: 0 !important;
     }
 
     .continue-hint {
@@ -726,47 +733,70 @@ body {
         font-size: 0.9rem !important;
     }
 
+    /* Level Name Position */
+    .level-name, .location-name {
+        right: auto !important;
+        left: 15px !important;
+        top: 15px !important;
+    }
+
     /* Dialog/Question Area */
     .dialog-container, .question-dialog, .intro-box {
-        bottom: 2px !important;
-        width: 98% !important;
-        padding: 4px !important;
+        bottom: auto !important;
+        top: 10px !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 60% !important;
+        padding: 5px 15px !important;
         max-height: 55vh !important;
         overflow-y: auto !important;
+        border-radius: 15px !important;
+        z-index: 50 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .master-avatar {
+        width: 50px !important;
+        height: 50px !important;
+        margin-right: 10px !important;
     }
     
     /* Target both p inside bubbles and raw dialog content */
     .dialog-bubble p, .dialog-content p, .dialog-content {
-        font-size: 1.1rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.5rem !important;
+        line-height: 1.4 !important;
         margin: 2px 0 !important;
+        font-weight: bold !important;
     }
 
     /* Options/Choices */
     .options-container {
-        bottom: 2px !important;
+        bottom: 10px !important;
         flex-wrap: wrap !important;
         justify-content: center !important;
         width: 100% !important;
-        gap: 3px !important;
+        gap: 5px !important;
     }
 
     .option-card {
-        padding: 2px 5px !important;
-        font-size: 1rem !important;
-        margin: 2px !important;
+        padding: 8px 15px !important;
+        font-size: 1.3rem !important;
+        margin: 5px !important;
         width: auto !important;
-        min-width: 60px !important;
-        flex: 1 1 25% !important;
+        min-width: 80px !important;
+        flex: 1 1 30% !important;
     }
 
     /* Buttons */
     .back-btn {
-        top: 2px !important;
+        top: 15px !important;
         bottom: auto !important;
-        left: 2px !important;
-        padding: 2px 6px !important;
-        font-size: 0.9rem !important;
+        left: 15px !important;
+        padding: 5px 12px !important;
+        font-size: 1.0rem !important;
     }
 
     .next-level-btn, .confirm-btn, .continue-btn {
@@ -778,16 +808,23 @@ body {
 
     /* Tools/Books */
     .game-toolbar {
-        top: 2px !important;
-        right: 2px !important;
-        flex-direction: row !important;
+        top: 50% !important;
+        right: 15px !important;
+        transform: translateY(-50%) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 20px !important;
+        width: auto !important;
     }
 
     .tool-item {
-        width: 30px !important;
-        height: 30px !important;
-        font-size: 1.2rem !important;
-        margin: 0 2px !important;
+        font-size: 2.5rem !important;
+        width: 50px !important;
+        height: 50px !important;
+        margin: 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
     }
 
     /* Popups (Book/Hint) */
@@ -798,8 +835,14 @@ body {
         max-width: none !important;
     }
     
+    .book-text, .hint-text {
+        font-size: 1.6rem !important;
+        line-height: 1.8 !important;
+        font-weight: bold !important;
+    }
+
     .book-text p {
-        font-size: 1.1rem !important;
-        line-height: 1.2 !important;
+        font-size: 1.8rem !important;
+        line-height: 1.6 !important;
     }
 }

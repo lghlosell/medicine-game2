@@ -81,6 +81,8 @@
         let currentPage = 1;
         let totalPages = 2; // Initially 2 pages (from A1) are unlocked
 
+        let currentAudio = null;
+
         function selectOption(option) {
             const dialogContent = document.querySelector('#question-dialog .dialog-content p');
             const options = document.querySelectorAll('.option-btn');
@@ -110,6 +112,10 @@
                 
                 // Check if both A and B are selected
                 if (selectedOptions.has('A') && selectedOptions.has('B')) {
+                    if (currentAudio) {
+                        currentAudio.pause();
+                        currentAudio = null;
+                    }
                     dialogContent.textContent = "“孺子可教也！生附子回阳救逆，熟附子温补命门，二者各有所长。随为师来第三关吧”";
                     
                     // Show next level button
@@ -179,8 +185,8 @@
 
         // Play voice6 on load
         window.onload = function() {
-            const audio = new Audio('../../assets/voice/voice6.mp3');
-            audio.play().catch(e => console.error("Error playing voice6:", e));
+            currentAudio = new Audio('../../assets/voice/voice6.mp3');
+            currentAudio.play().catch(e => console.error("Error playing voice6:", e));
         };
     </script>
     <a class="back-btn" href="../A1/A1.html">返回上一关</a>

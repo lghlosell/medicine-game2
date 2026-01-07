@@ -198,6 +198,11 @@
             else if (option === 'D') clickedCard = cards[3];
 
             if (option === 'A') {
+                const voiceAudio = document.getElementById('intro-voice');
+                if (voiceAudio) {
+                    voiceAudio.pause();
+                }
+                
                 dialogContent.textContent = "“然也！久煎可破坏乌头碱等有毒成分，保其温阳之效。”";
                 body.style.backgroundImage = "url('../../assets/img/bg4.3.png')";
                 

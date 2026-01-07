@@ -246,6 +246,12 @@
             if (isEqual(selectedOptions, correctOptions)) {
                 // Correct
                 isSolved = true;
+                
+                const voiceAudio = document.getElementById('intro-voice');
+                if (voiceAudio) {
+                    voiceAudio.pause();
+                }
+                
                 dialogText.textContent = "“妙哉！生姜既能佐制附子之毒，又能助其发散在表在里的寒湿水气，更能调和胃气，止其呕逆。此乃相畏相使之典范！”";
                 dialogText.style.color = "#2e7d32";
                 
@@ -298,7 +304,7 @@
             // Hide game elements to show the full background
             // document.querySelector('.level-name').style.display = 'none';
             document.querySelector('.location-name').style.display = 'none';
-            document.getElementById('question-dialog').style.display = 'none';
+            document.getElementById('question-dialog').style.setProperty('display', 'none', 'important');
             document.querySelector('.options-container').style.display = 'none';
             document.querySelector('.game-toolbar').style.display = 'none';
             document.getElementById('finish-btn').style.display = 'none'; // Hide the button itself

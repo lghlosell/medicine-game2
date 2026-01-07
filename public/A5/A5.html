@@ -47,8 +47,9 @@
             <div class="option-card" id="option-D" onclick="toggleOption('D')" onmouseenter="showPreview('D')" onmouseleave="hidePreview()">
                 呼吸系统，如呼吸抑制、呼吸困难等
             </div>
-            <button class="confirm-btn" onclick="checkAnswer()">确定</button>
         </div>
+
+        <button class="confirm-btn" onclick="checkAnswer()">确定</button>
 
         <!-- Image Preview Container -->
         <div class="image-preview-container" id="image-preview">
@@ -173,9 +174,11 @@
             if (selectedOptions.has(option)) {
                 selectedOptions.delete(option);
                 card.classList.remove('selected');
+                hidePreview();
             } else {
                 selectedOptions.add(option);
                 card.classList.add('selected');
+                showPreview(option);
             }
         }
 
@@ -208,6 +211,11 @@
             if (selectedOptions.size === 0) {
                 alert("请至少选择一个选项！");
                 return;
+            }
+
+            const voiceAudio = document.getElementById('intro-voice');
+            if (voiceAudio) {
+                voiceAudio.pause();
             }
 
             // Reset previous highlights
