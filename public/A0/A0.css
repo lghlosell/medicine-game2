@@ -220,16 +220,11 @@ body{
     width: 100%;
     display: flex;
     justify-content: center;
-    order: -1; /* Move to top */
-    margin-bottom: 10px; /* Add space below button */
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 .dialog-bubble {
     padding: 10px 20px;
-    border-radius: 0 !important; /* Ensure right angles */
-    font-size: 2.0rem; /* Larger font */
+    border-radius: 15px;
+    font-size: 1.8rem;
     font-weight: bold;
     line-height: 1.6;
     max-width: 100%;
@@ -242,7 +237,7 @@ body{
     background-color: rgba(255, 255, 255, 0.9);
     color: #333;
     align-self: flex-end; /* Align to right */
-    border-radius: 0 !important;
+    border-bottom-right-radius: 0;
     margin-bottom: 20px;
 }
 
@@ -250,7 +245,7 @@ body{
     background-color: rgba(62, 39, 35, 0.9); /* Dark brown */
     color: #fff;
     align-self: flex-start; /* Align to left */
-    border-radius: 0 !important;
+    border-bottom-left-radius: 0;
 }
 
 @keyframes slideUp {
@@ -543,21 +538,6 @@ body{
         line-height: 1.4 !important;
     }
 
-    .level-name {
-        writing-mode: vertical-rl !important;
-        text-orientation: upright !important;
-        font-size: 1.4rem !important;
-        top: 60px !important;
-        left: 15px !important;
-        padding: 10px 5px !important;
-        letter-spacing: 0.1rem !important;
-        width: auto !important;
-        max-width: none !important;
-        white-space: nowrap !important;
-        background: rgba(255, 255, 255, 0.6) !important;
-        border-radius: 5px;
-    }
-
     .continue-hint {
         bottom: 5px !important;
         right: 5px !important;
@@ -566,20 +546,18 @@ body{
 
     /* Dialog/Question Area */
     .dialog-container, .question-dialog, .intro-box {
-        bottom: 10px !important;
-        width: 70% !important;
-        max-width: 800px !important;
-        padding: 5px 15px !important;
+        bottom: 2px !important;
+        width: 98% !important;
+        padding: 4px !important;
         max-height: 55vh !important;
         overflow-y: auto !important;
-        border-radius: 0 !important;
     }
     
     /* Target both p inside bubbles and raw dialog content */
     .dialog-bubble p, .dialog-content p, .dialog-content {
-        font-size: 1.6rem !important;
-        line-height: 1.5 !important;
-        margin: 5px 0 !important;
+        font-size: 1.1rem !important;
+        line-height: 1.2 !important;
+        margin: 2px 0 !important;
     }
 
     /* Options/Choices */
@@ -602,11 +580,11 @@ body{
 
     /* Buttons */
     .back-btn {
-        top: 15px !important;
+        top: 2px !important;
         bottom: auto !important;
-        left: 15px !important;
-        padding: 5px 12px !important;
-        font-size: 1rem !important;
+        left: 2px !important;
+        padding: 2px 6px !important;
+        font-size: 0.9rem !important;
     }
 
     .next-level-btn, .confirm-btn, .continue-btn {
@@ -638,14 +616,8 @@ body{
         max-width: none !important;
     }
     
-    .book-text, .hint-text {
-        font-size: 1.6rem !important;
-        line-height: 1.8 !important;
-        font-weight: bold !important;
-    }
-
     .book-text p {
-        font-size: 1.8rem !important;
-        line-height: 1.6 !important;
+        font-size: 1.1rem !important;
+        line-height: 1.2 !important;
     }
 }
