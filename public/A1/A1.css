@@ -82,7 +82,7 @@ body{
     font-weight: bold;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     z-index: 200;
-    animation: pulse 2s infinite;
+    /* animation: pulse 2s infinite; Removed blinking effect */
     display: none; /* Hidden by default */
 }
 
@@ -311,8 +311,8 @@ body{
 /* Clickable Areas */
 .tray-click-area {
     position: absolute;
-    width: 150px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     /* background-color: rgba(255, 0, 0, 0.3); Debugging color */
     background-color: transparent;
     cursor: pointer;
@@ -321,13 +321,13 @@ body{
 }
 
 .area-left {
-    top: 75%; /* Positioned below the left arrow */
+    top: 70%; /* Positioned below the left arrow */
     left: 40%;
     transform: translate(-50%, 0);
 }
 
 .area-right {
-    top: 75%; /* Positioned below the right arrow */
+    top: 70%; /* Positioned below the right arrow */
     left: 60%;
     transform: translate(-50%, 0);
 }
@@ -561,10 +561,14 @@ body{
 /* =========================================
    Mobile Landscape Adaptation (Universal)
    ========================================= */
-@media screen and (max-height: 600px) and (orientation: landscape) {
+@media screen and (max-width: 1024px) and (orientation: landscape) {
     /* Global Font Adjustment */
     html {
         font-size: 10px !important; /* Reduced base font size */
+    }
+
+    body {
+        background-position: center 90% !important; /* Show bottom part of the background */
     }
 
     /* Intro Screen Adjustments */
@@ -701,5 +705,11 @@ body{
     .book-text p {
         font-size: 1.8rem !important;
         line-height: 1.6 !important;
+    }
+
+    /* Enlarge Tray Click Areas (Circles) */
+    .tray-click-area {
+        width: 180px !important;
+        height: 120px !important;
     }
 }

@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="A5.css"></link>
 </head>
 <body>
-    <!-- Intro Screen -->
-    <div id="intro-screen" class="intro-screen">
-        <img id="intro-bg-img" src="../../assets/img/night.png" style="position:absolute; width:100%; height:100%; object-fit:cover; opacity:1; z-index:-1;">
+    <!-- Intro Screen (Disabled) -->
+    <div id="intro-screen" class="intro-screen" style="display: none;">
+        <img id="intro-bg-img" src="../../assets/img/night.png" style="display:none; position:absolute; width:100%; height:100%; object-fit:cover; opacity:1; z-index:-1;">
         <div class="intro-text" id="intro-text-1">
             <p>完成了四关的考验，师父让我去准备一些材料，等晚上再来考验我，正好，我也累了，可以休息一下。</p>
         </div>
@@ -20,8 +20,8 @@
 
     <audio id="intro-voice" src="../../assets/voice/voice9.mp3" preload="auto"></audio>
 
-    <!-- Game Container (Initially Hidden) -->
-    <div id="game-container" style="display: none;">
+    <!-- Game Container (Always Visible) -->
+    <div id="game-container" style="display: block;">
         <!-- Level Name -->
         <!-- Location Name -->
         <div class="location-name">关卡五.毒象之辨</div>
@@ -137,7 +137,8 @@
     </div>
 
     <script>
-        // Intro Sequence
+        // Intro Sequence (Disabled)
+        /*
         document.addEventListener('DOMContentLoaded', () => {
             const introScreen = document.getElementById('intro-screen');
             const gameContainer = document.getElementById('game-container');
@@ -160,6 +161,15 @@
                     }
                 }, 500);
             }, 2000);
+        });
+        */
+        
+        // Play voice immediately on load
+        document.addEventListener('DOMContentLoaded', () => {
+             const audio = document.getElementById('intro-voice');
+             if (audio) {
+                 audio.play().catch(error => console.log("Autoplay prevented:", error));
+             }
         });
 
         // Game Logic

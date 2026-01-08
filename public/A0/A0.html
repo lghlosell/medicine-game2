@@ -40,9 +40,10 @@
     </div>
 
     <div class="dialog-container" id="dialog-container" style="display: none;">
-        <div class="dialog-bubble apprentice-bubble">
+        <!-- Removed apprentice-bubble per user request -->
+        <!-- <div class="dialog-bubble apprentice-bubble">
             <p>师父，徒儿已经打扫完了，桌上有本书，在学习书中的真武汤。</p>
-        </div>
+        </div> -->
         <div class="dialog-bubble master-bubble" style="display: none;">
             <p>“徒儿，欲习真武汤之精妙，必先通晓其君药附子。”</p>
             <p>“附子如猛虎，用当则回阳救逆，起死回生；用失则祸患无穷，伤及性命。今日，你需闯过七重考验，洞悉附子之性、用、毒、解、配，方能领悟真武汤真谛。准备好了吗？”</p>
@@ -191,6 +192,9 @@
                 if ('speechSynthesis' in window) {
                     window.speechSynthesis.cancel();
                 }
+
+                // Directly switch to read scene
+                switchBackground();
             }
         }
 
@@ -211,47 +215,18 @@
             document.getElementById('ancient-book-text').style.display = 'none';
             document.getElementById('read-scene-overlay').style.display = 'none';
             
-            // Show transition screen
-            const transitionScreen = document.getElementById('transition-screen');
-            transitionScreen.style.display = 'flex';
+            // Directly switch to meet scene
+            document.body.style.backgroundImage = "url('../../assets/img/meet.png')";
 
-            // Function to proceed to next part (Dialogs)
-            const showDialogs = () => {
-                 document.body.style.backgroundImage = "url('../../assets/img/meet.png')";
-                 transitionScreen.style.display = 'none';
-                 
-                 // Stop any audio if still playing (safety)
-                 if (currentAudio) {
-                     currentAudio.pause();
-                     currentAudio = null;
-                 }
-                 if ('speechSynthesis' in window) {
-                     window.speechSynthesis.cancel();
-                 }
-
-                 // Play voice3.mp3
-                 const voice3Path = '../../assets/voice/voice3.mp3';
-                 currentAudio = new Audio(voice3Path);
-                 currentAudio.play().catch(e => console.error("Error playing voice3:", e));
-                 
-                 // Show Dialogs
-                 document.getElementById('dialog-container').style.display = 'flex';
-                 // Show Book Icon
-                 document.getElementById('book-icon').style.display = 'flex';
-                 
-                 // Sequence: Apprentice speaks -> wait -> Master speaks
-                 setTimeout(() => {
-                     document.querySelector('.master-bubble').style.display = 'block';
-                     // Show Ready Button after master speaks
-                     setTimeout(() => {
-                        document.getElementById('ready-btn').style.display = 'block';
-                     }, 2000);
-                 }, 3000); // Master replies after 3 seconds
-            };
-
-            // Play voice2.mp3 for Transition Text
-            const transitionAudioPath = '../../assets/voice/voice2.mp3';
+            // Show Ready Button 3 seconds after meet scene loads
+            setTimeout(() => {
+                document.getElementById('ready-btn').style.display = 'block';
+            }, 3000);
             
+            // Show dialogs immediately upon entering meet scene
+            document.getElementById('dialog-container').style.display = 'flex';
+            document.querySelector('.master-bubble').style.display = 'block';
+
             // Stop previous audio/TTS
             if (currentAudio) {
                 currentAudio.pause();
@@ -261,46 +236,50 @@
                 window.speechSynthesis.cancel();
             }
 
-            // Enable click to proceed
-            transitionScreen.onclick = showDialogs;
-
-            currentAudio = new Audio(transitionAudioPath);
+            // Play voice2.mp3 (Narrator) first
+            const voice2Path = '../../assets/voice/voice2.mp3';
+            currentAudio = new Audio(voice2Path);
             
-            // Handle audio end - DO NOTHING, wait for click
-            // currentAudio.onended = showDialogs; // Removed
+            // Show Book Icon
+            document.getElementById('book-icon').style.display = 'flex';
+
+            // When voice2 ends, play voice3 and show dialogs
+            currentAudio.onended = () => {
+                 playVoice3AndShowDialogs();
+            };
             
-            // Fallback/Error handling
-            currentAudio.onerror = async () => {
-                console.log("Audio file voice2.mp3 not found or error, falling back to TTS");
-                
-                // Fallback text
-                const textToSpeak = "正当我看得入神，耳边忽飘来一句带笑的调侃：“哟，这么勤奋，扫地还偷看书？”我猛地抬头——师父抱臂倚门，夕阳给他镀了层暖金，眼底映着摇曳药影，像两潭含风的深水。";
-
-                if ('speechSynthesis' in window) {
-                     const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                     const voice = await getPreferredVoice();
-                     if (voice) utterance.voice = voice;
-                     utterance.lang = 'zh-CN'; 
-                     utterance.rate = 1.1; 
-                     utterance.pitch = 1.3;
-                     
-                     // utterance.onend = showDialogs; // Removed auto-advance
-                     // utterance.onerror = showDialogs; // Removed auto-advance
-
-                     window.speechSynthesis.speak(utterance);
-                } else {
-                    // No TTS, do nothing, wait for click
-                }
+            // Handle error (skip voice2 if fails)
+            currentAudio.onerror = () => {
+                console.log("voice2 failed, skipping to voice3");
+                playVoice3AndShowDialogs();
             };
 
-            try {
-                currentAudio.play().catch(e => {
-                     console.error("Audio play failed:", e);
-                     currentAudio.onerror();
-                });
-            } catch (e) {
-                 currentAudio.onerror();
-            }
+            currentAudio.play().catch(e => {
+                console.error("Error playing voice2:", e);
+                // If play fails (e.g. interaction policy), try to continue anyway or wait for user interaction? 
+                // Since user just clicked, it should play. If not, we proceed.
+                playVoice3AndShowDialogs();
+            });
+        }
+
+        function playVoice3AndShowDialogs() {
+             // Play voice3.mp3
+             const voice3Path = '../../assets/voice/voice3.mp3';
+             currentAudio = new Audio(voice3Path);
+             currentAudio.play().catch(e => console.error("Error playing voice3:", e));
+             
+             // Dialogs are already shown in showNextScene
+             
+             // Sequence: Apprentice speaks (audio only) -> wait -> Master speaks
+             // We keep the delay for the button to match the audio timing.
+             
+             setTimeout(() => {
+                 // Master replies after 3 seconds (approximate duration of apprentice's part in voice3)
+                 // Show Ready Button after master speaks
+                 setTimeout(() => {
+                    document.getElementById('ready-btn').style.display = 'block';
+                 }, 2000);
+             }, 3000); 
         }
 
         function showBookPopup() {

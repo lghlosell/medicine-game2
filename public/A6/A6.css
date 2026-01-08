@@ -341,21 +341,47 @@ body {
 /* Herb Circles */
 .herb-circle {
     position: absolute;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
+    width: 90px;
+    height: 70px;
+    border-radius: 50%; /* Elliptical shape */
     background-color: transparent; /* Transparent background */
     border: none; /* No border initially */
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 0; /* Hide text */
-    color: transparent; /* Hide text color */
+    font-size: 0; /* Hide default text */
+    color: transparent; /* Hide default text color */
     cursor: pointer;
     z-index: 90;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); Removed shadow for transparency */
     user-select: none;
+    background-size: 100% 100%; /* Fill the container */
+    background-position: center;
+    background-repeat: no-repeat;
+    overflow: visible; /* Allow label to show outside */
+}
+
+/* Herb Label Style */
+.herb-label {
+    position: absolute;
+    bottom: -25px; /* Position below */
+    left: 50%;
+    top: auto; /* Reset top */
+    transform: translateX(-50%); /* Center horizontally */
+    background-color: white; /* White background */
+    border: 1px solid black; /* Black border */
+    color: red; /* Red text */
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2px 5px;
+    white-space: nowrap;
+    border-radius: 3px;
+    writing-mode: horizontal-tb; /* Horizontal text */
+    text-orientation: mixed;
+    pointer-events: none; /* Let clicks pass through to the circle */
+    opacity: 1; /* Always visible */
+    visibility: visible;
 }
 
 .herb-circle:hover {
@@ -388,16 +414,59 @@ body {
     z-index: 95;
     text-shadow: 0 0 3px rgba(255, 255, 255, 0.8); /* Add text shadow for readability */
 }
-
+#herb-1{
+    height: 100px;
+}
+#herb-2{
+    width:100px;
+    height: 50px;
+}
+#herb-3{
+    width:100px;
+    height: 60px;
+}
+#herb-5{
+    width:100px;
+    height: 60px;
+}
+#herb-7{
+    width:100px;
+    height: 80px;
+}
 /* Initial positions for herbs - User to adjust */
-#herb-1 { top: 66%; left: 40%; }
-#herb-2 { top: 67%; left: 49%; }
-#herb-3 { top: 75%; left: 56%; }
-#herb-4 { top: 75%; left: 50%; }
-#herb-5 { top: 75%; left: 64%; }
-#herb-6 { top: 71%; left: 72%; }
-#herb-7 { top: 66%; left: 63%; }
-#herb-8 { top: 74%; left: 35%; }
+#herb-1 { top: 55%; left: 40%; background-image: url('../../assets/img/herbs/蜂蜜.png'); }
+#herb-2 { top: 62%; left: 47%; background-image: url('../../assets/img/herbs/甘草.png'); }
+#herb-3 { top: 72%; left: 53%; background-image: url('../../assets/img/herbs/白芍.png'); }
+#herb-4 { top: 70%; left: 42%; background-image: url('../../assets/img/herbs/人参.png'); }
+#herb-5 { top: 63%; left: 64%; background-image: url('../../assets/img/herbs/枸杞.png'); }
+#herb-6 { top: 71%; left: 62%; background-image: url('../../assets/img/herbs/女贞子.png'); }
+
+/* Specific label positioning for Gouqi and Nvzhenzi (Right side) */
+#herb-5 .herb-label,
+#herb-6 .herb-label {
+    bottom: auto;
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-left: 10px; /* Space between image and label */
+    writing-mode: vertical-rl; /* Vertical text */
+    text-orientation: upright;
+}
+#herb-7 { top: 60%; left: 56%; background-image: url('../../assets/img/herbs/绿豆.png'); }
+#herb-8 { top: 68%; left: 34%; background-image: url('../../assets/img/herbs/生姜.png'); }
+
+/* Specific label positioning for Honey and Ginger (Left side) */
+#herb-1 .herb-label,
+#herb-8 .herb-label {
+    bottom: auto;
+    top: 50%;
+    left: auto;
+    right: 100%;
+    transform: translateY(-50%);
+    margin-right: 10px; /* Space between image and label */
+    writing-mode: vertical-rl; /* Vertical text */
+    text-orientation: upright;
+}
 
 
 
@@ -673,10 +742,23 @@ body {
         gap: 10px !important;
     }
 
-    /* Round Frames Shift */
+    /* Round Frames Shift & Scale Down */
     .herb-circle {
         margin-top: -15px !important;
         margin-left: -15px !important;
+        transform: scale(0.6) !important; /* Scale down herbs in landscape */
+        transform-origin: center center !important;
+    }
+    
+    /* Adjust labels to counter-scale if they become too small, or keep them as is */
+    .herb-label {
+        font-size: 24px !important; /* Increase font size slightly to compensate for parent scale if needed, or just ensure readability */
+        /* If parent is scaled 0.6, label (child) is also scaled 0.6. 
+           To make text readable, we might want it larger relative to the circle, 
+           or we rely on the user zooming/checking. 
+           Let's make text slightly larger in definition so 0.6 * 24 = ~14.4px which is readable.
+           Original was 20px -> 0.6 * 20 = 12px (bit small).
+        */
     }
 
     .master-avatar {
